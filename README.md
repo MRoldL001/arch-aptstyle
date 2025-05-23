@@ -66,8 +66,9 @@ source ~/.zshrc
 |----------------------------|---------------------|---------------------|-------------|------------------------------|
 | install / i                | sudo pacman -S      | paru/yay -S         | ✅ 全部支持 | 安装软件包                   |
 | uninstall / remove / rm / r| sudo pacman -Rns    | paru/yay -Rns       | ✅ 全部支持 | 彻底删除软件包（含依赖）     |
-| update / up / u            | sudo pacman -Syu    | paru/yay -Syu       | ✅ 全部支持 | 更新官方仓库所有包           |
+| update / upgrade / up / u            | sudo pacman -Syu    | paru/yay -Syu       | ✅ 全部支持 | 更新官方仓库所有包           |
 | search / s                 | pacman -Ss          | paru/yay -Ss        | ✅ 全部支持 | 搜索软件包                   |
+| update --aur               | _不支持_            | paru/yay -Syua      | ❌ pacman不支持 | 仅更新AUR包                 |
 
 #### 包信息查询 ####
 
@@ -76,7 +77,7 @@ source ~/.zshrc
 | info                       | pacman -Si          | paru/yay -Si        | ✅ 全部支持 | 查看包信息                   |
 | info-aur                   | _不支持_            | paru/yay -Si --aur  | ❌ pacman不支持 | AUR包信息查询                |
 | list / ls                  | pacman -Q           | paru/yay -Q         | ✅ 全部支持 | 列出已安装包                 |
-| list aur                   | _不支持_            | paru/yay -Qm        | ❌ pacman不支持 | 列出AUR安装的包             |
+| list-aur                   | _不支持_            | paru/yay -Qm        | ❌ pacman不支持 | 列出AUR安装的包             |
 | why                        | pacman -Qi          | paru/yay -Qi        | ✅ 全部支持 | 查看包安装原因               |
 
 #### 系统维护 ####
@@ -95,16 +96,16 @@ source ~/.zshrc
 | download / dl              | _不支持_            | paru/yay -Sw        | ❌ pacman不支持 | 仅下载不安装                 |
 | diff                       | _不支持_            | paru/yay -Du --diff | ❌ pacman不支持 | 查看版本差异，需要pacman-contrib |
 
-#### 特殊功能 ####
+#### 其它操作 ####
 
 | 子命令                     | pacman 命令         | yay/paru 命令       | 支持情况     | 说明                         |
 |----------------------------|---------------------|---------------------|-------------|------------------------------|
-| update --aur               | _不支持_            | paru/yay -Syua      | ❌ pacman不支持 | 仅更新AUR包                 |
 | help / -h / --help         | pacman --help        | paru/ysy --help        | ✅ 全部支持 | 显示帮助信息                 |
 
 
-### 注意事项 ###
+#### 注意事项 ####
 
 - 上表未列出的子命令会直接透传给原生命令
 - pacman 需要 `sudo` 权限的操作会自动添加，理论上加不加 `sudo` 都可以正常工作
 - `yay` 和 `paru` 命令依赖于同名包管理器，安装后才能使用上述命令
+- `update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令来更新官方仓库的所有包
