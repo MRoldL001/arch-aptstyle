@@ -1,7 +1,8 @@
 # error message
 if [[ -o interactive ]]; then
   if ! command -v pacman >/dev/null 2>&1; then
-    echo -e "\033[1;31march-aptstyle:\033[ [E] 'pacman' not found. Please use an Arch-based system." >&2
+    echo -e "\033[1;31m[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.\033[0m" >&2
+    return 1
   fi
 fi
 
@@ -62,7 +63,7 @@ paru() {
       if [[ -n "$orphans" ]]; then
         command paru -Rns $orphans "$@"
       else
-        echo "No orphan packages to remove."
+        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
       fi
       ;;
     check|ck)
@@ -146,7 +147,7 @@ yay() {
       if [[ -n "$orphans" ]]; then
         command yay -Rns $orphans "$@"
       else
-        echo "No orphan packages to remove."
+        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
       fi
       ;;
     check|ck)
@@ -192,7 +193,8 @@ pacman() {
       sudo pacman -Syu
       ;;
     clean|c)
-      echo "pacman does not support the clean operation."
+      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the clean operation.\033[0m">&2
+      return 1
       ;;
     info|info-aur)
       shift
@@ -213,7 +215,7 @@ pacman() {
       if [[ -n "$orphans" ]]; then
         sudo pacman -Rns $orphans "$@"
       else
-        echo "No orphan packages to remove."
+        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
       fi
       ;;
     check|ck)
@@ -221,10 +223,12 @@ pacman() {
       pacman -Qk "$@"
       ;;
     download|dl)
-      echo "pacman does not support the download operation."
+      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the download operation.\033[0m">&2
+      return 1
       ;;
     diff)
-      echo "pacman does not support the diff operation."
+      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the diff operation.\033[0m">&2
+      return 1
       ;;
     why)
       shift
