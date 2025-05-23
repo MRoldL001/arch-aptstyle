@@ -76,7 +76,7 @@ source ~/.zshrc
 |----------------------------|---------------------|---------------------|-------------|------------------------------|
 | `info`                       | `pacman -Si`          | `paru/yay -Si`        | ✅ 全部支持 | 查看包信息                   |
 | 上一行命令加 `--aur`                   | _不支持_            | `paru/yay -Si --aur`  | ❌ pacman不支持 | AUR包信息查询                |
-| `list` / `ls`                  | `pacman -Q`           | `paru/`yay -Q`         | ✅ 全部支持 | 列出已安装包                 |
+| `list` / `ls`                  | `pacman -Q`           | `paru/`yay -Q`         | ✅ 全部支持 | 列出已安装包，即实际上对应apt风格的 `list --installed`命令                 |
 | 上一行命令加 `--aur`                   | _不支持_            | `paru/yay -Qm`        | ❌ pacman不支持 | 列出AUR安装的包             |
 | `why`                        | `pacman -Qi`          | `paru/yay -Qi`        | ✅ 全部支持 | 查看包安装原因               |
 
