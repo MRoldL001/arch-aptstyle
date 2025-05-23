@@ -6,239 +6,107 @@ if [[ -o interactive ]]; then
 fi
 
 # main
-paru() {
-  case "$1" in
+
+# genetal function
+__arch_aptstyle() {
+  local tool="$1" cmd="$2"
+  shift 2
+
+  case "$cmd" in
     install|i)
-      shift
-      command paru -S "$@"
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -S "$@" || "$tool" -S "$@"
       ;;
     uninstall|remove|rm|r)
-      shift
-      command paru -Rns "$@"
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Rns "$@" || "$tool" -Rns "$@"
       ;;
     search|s)
-      shift
-      command paru -Ss "$@"
+      "$tool" -Ss "$@"
       ;;
     update|upgrade|up|u)
-      shift
       if [[ "$1" == "-a" || "$1" == "--aur" ]]; then
         shift
-        command paru -Syua "$@"
+        "$tool" -Syua "$@"
       else
-        command paru -Syu "$@"
+        [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu || "$tool" -Syu "$@"
       fi
       ;;
     clean|c)
-      shift
-      command paru -Sc "$@"
+      if [[ "$tool" == "pacman" ]]; then
+        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the clean operation.\033[0m" >&2
+        return 1
+      fi
+      "$tool" -Sc "$@"
       ;;
-    info|info-aur)
-      shift
-      if [[ "$1" == "aur" ]]; then
+    info)
+      if [[ "$1" == "--aur" ]]; then
         shift
-        command paru -Si --aur "$@"
+        [[ "$tool" == "pacman" ]] && {
+          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
+          return 1
+        }
+        echo -e "\033[1;32m[I] arch-aptstyle:Showing AUR info for: $*\033[0m"
+        "$tool" -Si --aur "$@"
       else
-        command paru -Si "$@"
+        echo -e "\033[1;32m[I] arch-aptstyle:Showing info for: $*\033[0m"
+        "$tool" -Si "$@"
       fi
       ;;
     list|ls)
-      shift
-      if [[ "$1" == "aur" ]]; then
+      if [[ "$1" == "--aur" ]]; then
         shift
-        command paru -Qm "$@"
+        [[ "$tool" == "pacman" ]] && {
+          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
+          return 1
+        }
+        echo -e "\033[1;32m[I] arch-aptstyle:Listing AUR packages\033[0m"
+        "$tool" -Qm "$@"
       else
-        command paru -Q "$@"
+        echo -e "\033[1;32m[I] arch-aptstyle:Listing installed packages\033[0m"
+        "$tool" -Q "$@"
       fi
       ;;
     orphan|orphans)
-      shift
-      command paru -Qtd "$@"
+      "$tool" -Qtd "$@"
       ;;
     autoremove|ar)
-      shift
       local orphans
-      orphans=$(paru -Qtdq)
+      orphans=$("$tool" -Qtdq)
       if [[ -n "$orphans" ]]; then
-        command paru -Rns $orphans "$@"
+        [[ "$tool" == "pacman" ]] && sudo "$tool" -Rns $orphans "$@" || "$tool" -Rns $orphans "$@"
       else
-        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
+        echo -e "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
       fi
       ;;
     check|ck)
-      shift
-      command paru -Qk "$@"
+      "$tool" -Qk "$@"
       ;;
     download|dl)
-      shift
-      command paru -Sw "$@"
+      [[ "$tool" == "pacman" ]] && {
+        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the download operation.\033[0m" >&2
+        return 1
+      }
+      "$tool" -Sw "$@"
       ;;
     diff)
-      shift
-      command paru -Du --diff "$@"
+      [[ "$tool" == "pacman" ]] && {
+        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the diff operation.\033[0m" >&2
+        return 1
+      }
+      "$tool" -Du --diff "$@"
       ;;
     why)
-      shift
-      command paru -Qi "$@"
+      "$tool" -Qi "$@"
       ;;
     help|-h|--help)
-      command paru --help
+      "$tool" --help
       ;;
     *)
-      command paru "$@"
+      "$tool" "$cmd" "$@"
       ;;
   esac
 }
 
-yay() {
-  case "$1" in
-    install|i)
-      shift
-      command yay -S "$@"
-      ;;
-    uninstall|remove|rm|r)
-      shift
-      command yay -Rns "$@"
-      ;;
-    search|s)
-      shift
-      command yay -Ss "$@"
-      ;;
-    update|upgrade|up|u)
-      shift
-      if [[ "$1" == "-a" || "$1" == "--aur" ]]; then
-        shift
-        command yay -Syua "$@"
-      else
-        command yay -Syu "$@"
-      fi
-      ;;
-    clean|c)
-      shift
-      command yay -Sc "$@"
-      ;;
-    info|info-aur)
-      shift
-      if [[ "$1" == "aur" ]]; then
-        shift
-        command yay -Si --aur "$@"
-      else
-        command yay -Si "$@"
-      fi
-      ;;
-    list|ls)
-      shift
-      if [[ "$1" == "aur" ]]; then
-        shift
-        command yay -Qm "$@"
-      else
-        command yay -Q "$@"
-      fi
-      ;;
-    orphan|orphans)
-      shift
-      command yay -Qtd "$@"
-      ;;
-    autoremove|ar)
-      shift
-      local orphans
-      orphans=$(yay -Qtdq)
-      if [[ -n "$orphans" ]]; then
-        command yay -Rns $orphans "$@"
-      else
-        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
-      fi
-      ;;
-    check|ck)
-      shift
-      command yay -Qk "$@"
-      ;;
-    download|dl)
-      shift
-      command yay -Sw "$@"
-      ;;
-    diff)
-      shift
-      command yay -Du --diff "$@"
-      ;;
-    why)
-      shift
-      command yay -Qi "$@"
-      ;;
-    help|-h|--help)
-      command yay --help
-      ;;
-    *)
-      command yay "$@"
-      ;;
-  esac
-}
-
-pacman() {
-  case "$1" in
-    install|i)
-      shift
-      sudo pacman -S "$@"
-      ;;
-    uninstall|remove|rm|r)
-      shift
-      sudo pacman -Rns "$@"
-      ;;
-    search|s)
-      shift
-      pacman -Ss "$@"
-      ;;
-    update|upgrade|up|u)
-      sudo pacman -Syu
-      ;;
-    clean|c)
-      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the clean operation.\033[0m">&2
-      return 1
-      ;;
-    info|info-aur)
-      shift
-      pacman -Si "$@"
-      ;;
-    list|ls)
-      shift
-      pacman -Q "$@"
-      ;;
-    orphan|orphans)
-      shift
-      pacman -Qtd "$@"
-      ;;
-    autoremove|ar)
-      shift
-      local orphans
-      orphans=$(pacman -Qtdq)
-      if [[ -n "$orphans" ]]; then
-        sudo pacman -Rns $orphans "$@"
-      else
-        echo "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
-      fi
-      ;;
-    check|ck)
-      shift
-      pacman -Qk "$@"
-      ;;
-    download|dl)
-      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the download operation.\033[0m">&2
-      return 1
-      ;;
-    diff)
-      echo "\033[1;31m[E] arch-aptstyle:pacman does not support the diff operation.\033[0m">&2
-      return 1
-      ;;
-    why)
-      shift
-      pacman -Qi "$@"
-      ;;
-    help|-h|--help)
-      pacman --help
-      ;;
-    *)
-      pacman "$@"
-      ;;
-  esac
-}
-
+# main function
+paru()   { __arch_aptstyle paru "$@"; }
+yay()    { __arch_aptstyle yay "$@"; }
+pacman() { __arch_aptstyle pacman "$@"; }
