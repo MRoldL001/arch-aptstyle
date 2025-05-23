@@ -1,3 +1,5 @@
+# version: dev2025524-621
+
 # error message
 if [[ -o interactive ]]; then
   if ! command -v pacman >/dev/null 2>&1; then
