@@ -60,48 +60,66 @@ source ~/.zshrc
 
 ### 命令对照表(附说明) ###
 
-| 子命令               | pacman 命令                 | paru/yay 命令               | 支持情况           |
-|----------------------|----------------------------|----------------------------|-------------------|
-| `install`/`i`        | `sudo pacman -S`           | `paru/yay -S`              | ✅ 全部支持       |
-| `uninstall`/`rm`/`r` | `sudo pacman -Rns`         | `paru/yay -Rns`            | ✅ 全部支持       |
-| `update`/`up`/`u`    | `sudo pacman -Syu`         | `paru/yay -Syu [--aur]`    | ✅ 全部支持       |
-| `search`/`s`         | `pacman -Ss`               | `paru/yay -Ss`             | ✅ 全部支持       |
+#### 基本操作 ####
+
+| 子命令               | 对应命令                   | 支持情况           | 使用说明                                                                 |
+|----------------------|---------------------------|-------------------|--------------------------------------------------------------------------|
+| `install`/`i`        | `sudo pacman -S`          | ✅ 全部支持       | 安装软件包，例：`pacman install nano`                                   |
+|                      | `paru/yay -S`             |                   | 支持同时安装AUR包，例：`paru install google-chrome`                     |
+| `uninstall`/`rm`/`r` | `sudo pacman -Rns`        | ✅ 全部支持       | 彻底删除软件包(含依赖)，例：`yay remove firefox`                        |
+|                      | `paru/yay -Rns`           |                   |                                                                         |
+| `update`/`up`/`u`    | `sudo pacman -Syu`        | ✅ 全部支持       | 更新所有官方仓库包，例：`pacman update`                                 |
+|                      | `paru/yay -Syu [--aur]`   |                   | `--aur`参数可同时更新AUR包，例：`yay update --aur`                      |
+| `search`/`s`         | `pacman -Ss`              | ✅ 全部支持       | 搜索软件包，例：`paru search java`                                      |
+|                      | `paru/yay -Ss`            |                   | 支持搜索AUR仓库                                                         |
 
 #### 包信息查询 ####
 
-| 子命令               | pacman 命令                 | paru/yay 命令               | 支持情况           |
-|----------------------|----------------------------|----------------------------|-------------------|
-| `info`               | `pacman -Si`               | `paru/yay -Si`             | ✅ 全部支持       |
-| `info-aur`           | _不支持_                   | `paru/yay -Si --aur`       | ❌ pacman不支持   |
-| `list`/`ls`          | `pacman -Q`                | `paru/yay -Q`              | ✅ 全部支持       |
-| `list aur`           | _不支持_                   | `paru/yay -Qm`             | ❌ pacman不支持   |
-| `why`                | `pacman -Qi`               | `paru/yay -Qi`             | ✅ 全部支持       |
+| 子命令               | 对应命令                   | 支持情况           | 使用说明                                                                 |
+|----------------------|---------------------------|-------------------|--------------------------------------------------------------------------|
+| `info`               | `pacman -Si`              | ✅ 全部支持       | 查看包信息，例：`yay info python`                                       |
+|                      | `paru/yay -Si`            |                   |                                                                         |
+| `info-aur`           | _不支持_                  | ❌ pacman不支持   | 专查AUR包信息，例：`paru info-aur visual-studio-code-bin`               |
+|                      | `paru/yay -Si --aur`      |                   |                                                                         |
+| `list`/`ls`          | `pacman -Q`               | ✅ 全部支持       | 列出已安装包，例：`pacman list`                                         |
+|                      | `paru/yay -Q`             |                   |                                                                         |
+| `list aur`           | _不支持_                  | ❌ pacman不支持   | 仅列AUR安装的包，例：`yay list aur`                                     |
+|                      | `paru/yay -Qm`            |                   |                                                                         |
+| `why`                | `pacman -Qi`              | ✅ 全部支持       | 查看包安装原因，例：`paru why linux-headers`                            |
+|                      | `paru/yay -Qi`            |                   |                                                                         |
 
 #### 系统维护 ####
 
-| 子命令               | pacman 命令                 | paru/yay 命令               | 支持情况           |
-|----------------------|----------------------------|----------------------------|-------------------|
-| `clean`/`c`          | _显示错误_                 | `paru/yay -Sc`             | ❌ pacman不支持   |
-| `orphan`/`orphans`   | `pacman -Qtd`              | `paru/yay -Qtd`            | ✅ 全部支持       |
-| `autoremove`/`ar`    | 删除孤儿包                 | 删除孤儿包                 | ✅ 全部支持       |
-| `check`/`ck`         | `pacman -Qk`               | `paru/yay -Qk`             | ✅ 全部支持       |
+| 子命令               | 对应命令                   | 支持情况           | 使用说明                                                                 |
+|----------------------|---------------------------|-------------------|--------------------------------------------------------------------------|
+| `clean`/`c`          | _显示错误_                | ❌ pacman不支持   | 清理缓存包，例：`paru clean`                                            |
+|                      | `paru/yay -Sc`            |                   | 需手动确认删除                                                          |
+| `orphan`/`orphans`   | `pacman -Qtd`             | ✅ 全部支持       | 列出孤儿包，例：`yay orphans`                                           |
+|                      | `paru/yay -Qtd`           |                   |                                                                         |
+| `autoremove`/`ar`    | 删除孤儿包                 | ✅ 全部支持       | 自动删除孤儿包，例：`pacman autoremove`                                 |
+|                      | (使用`-Rns`)              |                   | 无孤儿包时显示友好提示                                                  |
+| `check`/`ck`         | `pacman -Qk`              | ✅ 全部支持       | 检查包完整性，例：`paru check`                                          |
+|                      | `paru/yay -Qk`            |                   |                                                                         |
 
 #### 高级操作 ####
 
-| 子命令               | pacman 命令                 | paru/yay 命令               | 支持情况           |
-|----------------------|----------------------------|----------------------------|-------------------|
-| `download`/`dl`      | _显示错误_                 | `paru/yay -Sw`             | ❌ pacman不支持   |
-| `diff`               | _显示错误_                 | `paru/yay -Du --diff`      | ❌ pacman不支持   |
+| 子命令               | 对应命令                   | 支持情况           | 使用说明                                                                 |
+|----------------------|---------------------------|-------------------|--------------------------------------------------------------------------|
+| `download`/`dl`      | _显示错误_                | ❌ pacman不支持   | 仅下载不安装，例：`yay download spotify`                                |
+|                      | `paru/yay -Sw`            |                   | 包文件保存在`/var/cache/pacman/pkg/`                                    |
+| `diff`               | _显示错误_                | ❌ pacman不支持   | 查看版本差异，例：`paru diff linux`                                     |
+|                      | `paru/yay -Du --diff`     |                   | 需先安装`pacman-contrib`                                                |
 
 #### 特殊功能 ####
 
-| 子命令               | 说明                                                                 |
-|----------------------|--------------------------------------------------------------------|
-| `update --aur`       | 仅 paru/yay 支持: 更新AUR包 (`-Syua`)                              |
-| `autoremove`         | 自动移除所有孤儿包，无孤儿包时显示提示信息 
-| `help`/`--help`/`-h`         | 自动移除所有孤儿包，无孤儿包时显示提示信息                           |
+| 子命令               | 对应命令                   | 支持情况           | 使用说明                                                                 |
+|----------------------|---------------------------|-------------------|--------------------------------------------------------------------------|
+| `update --aur`       | `paru/yay -Syua`          | ✅ paru/yay支持   | 仅更新AUR包，例：`yay update --aur`                                     |
+| `autoremove`         | `paru/yay -Rns $(Qtdq)`   | ✅ 全部支持       | 自动移除孤儿包，无包可移时显示：`[I] 无孤儿包可移除`                     |
+| `help`/`-h`/`--help` | 透传原生`--help`          | ✅ 全部支持       | 显示帮助信息，例：`pacman --help`                                        |
 
 ### 注意事项 ###
+
 - 上表未列出的子命令会直接透传给原生命令
 - pacman 需要 `sudo` 权限的操作会自动添加，理论上加不加 `sudo` 都可以正常工作
 - `yay` 和 `paru` 命令依赖于同名包管理器，安装后才能使用上述命令
