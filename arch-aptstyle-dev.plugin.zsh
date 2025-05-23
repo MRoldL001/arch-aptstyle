@@ -105,6 +105,6 @@ __arch_aptstyle() {
 }
 
 # main function
-paru()   { __arch_aptstyle paru "$@"; }
-yay()    { __arch_aptstyle yay "$@"; }
-pacman() { __arch_aptstyle pacman "$@"; }
+parua()   { __arch_aptstyle paru "$@"; }
+yaya()    { __arch_aptstyle yay "$@"; }
+pacmana() { __arch_aptstyle pacman "$@"; }

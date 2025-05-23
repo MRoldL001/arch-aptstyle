@@ -2,7 +2,7 @@
 
 **arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户提供类 `apt` 的包管理命令封装。
 
-通过提供一系列 `apt` 风格的 Arch Linux 包管理指令，使用户在迁移至 Arch 时能够以更熟悉的操作习惯快速上手，无需重新学习各类包管理工具的语法。
+通过提供一系列 `apt` 风格的 Arch Linux 包管理指令，使用户只需要多敲一个 `a` 就能 在迁移至 Arch 时以更熟悉的操作习惯快速上手，无需重新学习各类包管理工具的语法。
 
 ## 🚀 快速开始
 
@@ -55,9 +55,11 @@ source ~/arch-aptstyle/arch-aptstyle.zsh
 source ~/.zshrc
 ```
 
-现在，你可以通过 `pacman update` `yay remove <pkg>` `paru i <pkg>` 等一系列apt风格指令来进行包管理了！
+现在，你可以通过 `pacmana update` `yaya remove <pkg>` `parua i <pkg>` 等一系列apt风格指令来进行包管理了！
 
 ## 📖 使用指南
+
+在 `Arch Linux` 或基于 `Arch` 的Linux发行版的常用包管理器 `pacman` `yay` `paru` 后加一个 `a` ，就能快速享受apt风格所带来的熟悉体验!
 
 ### 命令对照表(附说明)
 
@@ -107,7 +109,7 @@ source ~/.zshrc
 
 - 上表未列出的子命令会直接透传给原生命令
 - pacman 需要 `sudo` 权限的操作会自动添加，理论上加不加 `sudo` 都可以正常工作
-- `yay` 和 `paru` 命令依赖于同名包管理器，安装后才能使用上述命令
+- `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
 - `update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令来更新官方仓库的所有包
 
 #### autoremove 命令的实现形式
