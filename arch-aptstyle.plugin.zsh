@@ -1,7 +1,7 @@
 # error message
 if [[ -o interactive ]]; then
   if ! command -v pacman >/dev/null 2>&1; then
-    echo -e "\032[1;31m[I] arch-aptstyle:'pacman' not found. Please use an Arch-based system.\033[0m" >&2
+    echo -e "\033[1;33m[I] arch-aptstyle:'pacman' not found. Please use an Arch-based system.\033[0m" >&2
   fi
 fi
 
