@@ -37,4 +37,4 @@ source ~/arch-aptstyle/arch-aptstyle.zsh
 ```zsh
 source ~/.zshrc
 ```
-现在，你可以通过 `pacman update` `yay remove <pkg>` `paru i <pkg>` 等一系列apt风格指令来进行包管理了！# arch-aptstyle
+现在，你可以通过 `pacman update` `yay remove <pkg>` `paru i <pkg>` 等一系列apt风格指令来进行包管理了！
