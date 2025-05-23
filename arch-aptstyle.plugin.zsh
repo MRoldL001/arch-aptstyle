@@ -1,3 +1,5 @@
+# version: 0.1.0(legacy)
+
 # error message
 if [[ -o interactive ]]; then
   if ! command -v pacman >/dev/null 2>&1; then
