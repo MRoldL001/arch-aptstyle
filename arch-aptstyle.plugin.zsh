@@ -7,7 +7,7 @@ fi
 
 # main
 
-# genetal function
+# general function
 __arch_aptstyle() {
   local tool="$1" cmd="$2"
   shift 2
@@ -40,28 +40,24 @@ __arch_aptstyle() {
     info)
       if [[ "$1" == "--aur" ]]; then
         shift
-        [[ "$tool" == "pacman" ]] && {
+        if [[ "$tool" == "pacman" ]]; then
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
           return 1
-        }
-        echo -e "\033[1;32m[I] arch-aptstyle:Showing AUR info for: $*\033[0m"
+        fi
         "$tool" -Si --aur "$@"
       else
-        echo -e "\033[1;32m[I] arch-aptstyle:Showing info for: $*\033[0m"
         "$tool" -Si "$@"
       fi
       ;;
     list|ls)
       if [[ "$1" == "--aur" ]]; then
         shift
-        [[ "$tool" == "pacman" ]] && {
+        if [[ "$tool" == "pacman" ]]; then
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
           return 1
-        }
-        echo -e "\033[1;32m[I] arch-aptstyle:Listing AUR packages\033[0m"
+        fi
         "$tool" -Qm "$@"
       else
-        echo -e "\033[1;32m[I] arch-aptstyle:Listing installed packages\033[0m"
         "$tool" -Q "$@"
       fi
       ;;
@@ -81,17 +77,17 @@ __arch_aptstyle() {
       "$tool" -Qk "$@"
       ;;
     download|dl)
-      [[ "$tool" == "pacman" ]] && {
+      if [[ "$tool" == "pacman" ]]; then
         echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the download operation.\033[0m" >&2
         return 1
-      }
+      fi
       "$tool" -Sw "$@"
       ;;
     diff)
-      [[ "$tool" == "pacman" ]] && {
+      if [[ "$tool" == "pacman" ]]; then
         echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the diff operation.\033[0m" >&2
         return 1
-      }
+      fi
       "$tool" -Du --diff "$@"
       ;;
     why)
