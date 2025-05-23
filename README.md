@@ -122,5 +122,5 @@ source ~/.zshrc
 | `[E] arch-aptstyle: ... does not support ... ` || 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令 |
 | `[I] arch-aptstyle:No orphan packages to remove.` || 你没有孤儿包，不需要清理 |
 
-## 致谢
-感谢 [sskka235](https://github.com/sskka235) 为dev版本提供的测试支持
+## ✨ 致谢
+- 感谢 [sskka235](https://github.com/sskka235) 为dev版本提供的测试支持
