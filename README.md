@@ -1,6 +1,6 @@
 # arch-aptstyle
 
-**arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户，提供类 `apt` 的包管理命令封装。
+**arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户提供类 `apt` 的包管理命令封装。
 
 通过提供一系列 `apt` 风格的 Arch Linux 包管理指令，使用户在迁移至 Arch 时能够以更熟悉的操作习惯快速上手，无需重新学习各类包管理工具的语法。
 
