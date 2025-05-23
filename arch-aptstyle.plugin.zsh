@@ -23,7 +23,7 @@ __arch_aptstyle() {
       "$tool" -Ss "$@"
       ;;
     update|upgrade|up|u)
-      if [[ "$1" == "-a" || "$1" == "--aur" ]]; then
+      if [[ "$1" == "--aur" ]]; then
         shift
         "$tool" -Syua "$@"
       else
