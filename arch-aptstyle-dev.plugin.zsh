@@ -11,6 +11,10 @@ fi
 
 # general function
 __arch_aptstyle() {
+  if [[ $# -lt 2 ]]; then
+    echo -e "\033[1;31m[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]\033[0m" >&2
+    return 1
+  fi
   local tool="$1" cmd="$2"
   shift 2
 
