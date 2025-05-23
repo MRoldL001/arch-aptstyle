@@ -123,4 +123,4 @@ source ~/.zshrc
 | `[I] arch-aptstyle:No orphan packages to remove.` || 你没有孤儿包，不需要清理 |
 
 ## ✨ 致谢
-- 感谢 [sskka235](https://github.com/sskka235) 为dev版本提供的测试支持
+- 感谢 [sskka235](https://github.com/sskka235) 为 `dev` 版本所提供的测试支持
