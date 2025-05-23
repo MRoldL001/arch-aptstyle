@@ -57,7 +57,7 @@ source ~/.zshrc
 
 现在，你可以通过 `pacman update` `yay remove <pkg>` `paru i <pkg>` 等一系列apt风格指令来进行包管理了！
 
-## 🧭 使用指南
+## 📖 使用指南
 
 ### 命令对照表(附说明)
 
