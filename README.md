@@ -59,7 +59,7 @@ source ~/.zshrc
 
 ## 📖 使用指南
 
-在 `Arch Linux` 或基于 `Arch` 的Linux发行版的常用包管理器 `pacman` `yay` `paru` 后加一个 `a` ，就能快速享受 apt 风格所带来的熟悉体验!
+在 `Arch Linux` 或基于 `Arch` 的Linux发行版的常用包管理器 `pacman` `yay` `paru` 后加一个 `a` ，变成 `pacmana` `yaya` `parua` ，就能快速享受 apt 风格所带来的熟悉体验!
 
 ### 命令对照表(附说明)
 
