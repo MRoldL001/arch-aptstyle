@@ -1,4 +1,4 @@
-# version: 0.9.0
+# version: 2025524-912
 
 # error message
 if [[ $- == *i* ]]; then
