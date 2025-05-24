@@ -72,7 +72,7 @@ __arch_aptstyle() {
       ;;
     autoremove|ar)
       local orphans
-      mapfile -t orphans < <("$tool" -Qtdq)
+      orphans=("${(@f)$("$tool" -Qtdq)}")
       if (( ${#orphans[@]} > 0 )); then
         if [[ "$tool" == "pacman" ]]; then
           sudo "$tool" -Rns "${orphans[@]}" "$@"
