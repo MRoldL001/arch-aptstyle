@@ -44,7 +44,7 @@ plugins=(arch-aptstyle)
 如果没有安装，建议的做法是在 `~/.zshrc` 中加入
 
 ```zsh
-source ~/arch-aptstyle/arch-aptstyle.zsh
+source ~/arch-aptstyle/arch-aptstyle.plugin.zsh
 ```
 
 这样便于后续的插件管理，当然你也可以通过直接加载这个 `.zsh` 文件来让其生效
