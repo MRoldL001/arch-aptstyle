@@ -1,4 +1,4 @@
-# version: dev2025524-621
+# version: dev2025524-809
 
 # error message
 if [[ $- == *i* ]]; then
@@ -112,3 +112,4 @@ __arch_aptstyle() {
 parua()   { __arch_aptstyle paru "$@"; }
 yaya()    { __arch_aptstyle yay "$@"; }
 pacmana() { __arch_aptstyle pacman "$@"; }
+
