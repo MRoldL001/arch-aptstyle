@@ -112,7 +112,7 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
 * Subcommands not listed will be passed through to the original command.
 * `sudo` is automatically added for pacman commands that require root; it’s safe to use with or without.
 * `yaya` and `parua` depend on the respective tools (`yay`, `paru`) being installed without the `a`.
-* `update` and `upgrade` both wrap `--Syu`, updating all packages from official repos.
+* Both `update` and `upgrade` are wrappers for `--Syu`, so you can use either of these commands to update all packages from the official repositories.
 
 #### Implementation of `autoremove`
 
