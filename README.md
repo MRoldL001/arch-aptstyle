@@ -124,7 +124,7 @@ source ~/.zshrc
 | `[E] arch-aptstyle: ... does not support ... ` | 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令 |
 | `[I] arch-aptstyle:No orphan packages to remove.` | 你没有孤儿包，不需要清理 |
 | `[E] arch-aptstyle: ... autoremove failed.` | 请通过issue报告给开发者 |
-| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少参数，参见[命令对照表](###命令对照表) |
+| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少参数，参见 [命令对照表](#命令对照表) |
 
 ## ✨ 致谢
 - 感谢 [sskka235](https://github.com/sskka235) 为 `dev` 版本所提供的测试支持
