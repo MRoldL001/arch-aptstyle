@@ -72,9 +72,18 @@ __arch_aptstyle() {
       ;;
     autoremove|ar)
       local orphans
-      orphans=$("$tool" -Qtdq)
-      if [[ -n "$orphans" ]]; then
-        [[ "$tool" == "pacman" ]] && sudo "$tool" -Rns $orphans "$@" || "$tool" -Rns $orphans "$@"
+      mapfile -t orphans < <("$tool" -Qtdq)
+      if (( ${#orphans[@]} > 0 )); then
+        if [[ "$tool" == "pacman" ]]; then
+          sudo "$tool" -Rns "${orphans[@]}" "$@"
+          local ret=$?
+          if [[ $ret -ne 0 ]]; then
+            echo -e "\033[1;31m[E] arch-aptstyle:$tool autoremove failed.\033[0m" >&2
+            return $ret
+          fi
+        else
+          "$tool" -Rns "${orphans[@]}" "$@"
+        fi
       else
         echo -e "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
       fi
