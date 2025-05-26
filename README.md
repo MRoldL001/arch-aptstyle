@@ -122,14 +122,13 @@ source ~/.zshrc
 | `download` / `dl`        |     | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
 | `help` / `-h` / `--help` |     | `pacman --help` | `paru/ysy --help` | ✅ 全部支持 | 显示帮助信息 |
 
-#### 注意事项
-
-- 上表未列出的子命令会直接透传给原生命令
-- pacman 需要 `sudo` 权限的操作会自动添加，请不要主动添加 `sudo` 
-- `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
-- ~~`update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新官方仓库的所有包~~
-- 现在，`update` 和 `upgrade` 是解耦的，你可以通过它们将更新包缓存与升级软件包分开处理
-- list 和 search 可能存在 BUG，如果遇到请在 issues 中提出
+> [!WARNING|label:注意事项]
+> - 上表未列出的子命令会直接透传给原生命令
+> - pacman 需要 `sudo` 权限的操作会自动添加，请不要主动添加 `sudo` 
+> - `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
+> - ~~`update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新官方仓库的所有包~~
+> - 现在，`update` 和 `upgrade` 是解耦的，你可以通过它们将更新包缓存与升级软件包分开处理
+> - list 和 search 可能存在 BUG，如果遇到请在 issues 中提出
 
 ### 常见提示信息及应对指南
 
