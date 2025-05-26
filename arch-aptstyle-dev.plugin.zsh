@@ -1,5 +1,7 @@
+#!/usr/bin/env zsh
+
 # version
-aas_version = "2025526-2003"
+aas_version="2025527-0008"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -8,8 +10,7 @@ if [[ $- == *i* ]]; then
   fi
 fi
 
-# main
-# general function
+# main function
 __arch_aptstyle() {
   if [[ $# -lt 2 ]]; then
     echo -e "\033[1;31m[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]\033[0m" >&2
@@ -26,9 +27,46 @@ __arch_aptstyle() {
       [[ "$tool" == "pacman" ]] && sudo "$tool" -Rns "$@" || "$tool" -Rns "$@"
       ;;
     search|s)
-      "$tool" -Ss "$@"
+      local aur_flag=false official_flag=false
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          --aur)
+            aur_flag=true
+            shift
+            ;;
+          --official)
+            official_flag=true
+            shift
+            ;;
+          -*)
+            echo -e "\033[1;31m[E] arch-aptstyle:search: unknown option '$1'\033[0m" >&2
+            return 1
+            ;;
+          *)
+            break
+            ;;
+        esac
+      done
+
+      if (( aur_flag + official_flag > 1 )); then
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify more than one of --aur or --official simultaneously.\033[0m" >&2
+        return 1
+      elif $aur_flag; then
+        if [[ "$tool" == "pacman" ]]; then
+          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
+          return 1
+        fi
+        "$tool" -Ss "$@" | awk '{print "[AUR] " $0}'
+      elif $official_flag; then
+        pacman -Ss "$@" | awk '{print "[OFFICIAL] " $0}'
+      else
+        pacman -Ss "$@" | awk '{print "[OFFICIAL] " $0}'
+        if [[ "$tool" != "pacman" ]]; then
+          "$tool" -Ss "$@" | awk '{print "[AUR] " $0}'
+        fi
+      fi
       ;;
-    update|upgrade|up|u)
+    update|upd)
       local aur_flag=false
       while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -43,9 +81,33 @@ __arch_aptstyle() {
       done
 
       if $aur_flag; then
-        "$tool" -Syua "$@"
+        if [[ "$tool" == "pacman" ]]; then
+          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
+          return 1
+        fi
+        "$tool" -Sy "$@"
       else
-        [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu "$@" || "$tool" -Syu "$@"
+        [[ "$tool" == "pacman" ]] && sudo "$tool" -Sy "$@" || "$tool" -Sy "$@"
+      fi
+      ;;
+    upgrade|upg)
+      local aur_flag=false
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          --aur)
+            aur_flag=true
+            shift
+            ;;
+          *)
+            break
+            ;;
+        esac
+      done
+
+      if $aur_flag; then
+        "$tool" -Su "$@"
+      else
+        [[ "$tool" == "pacman" ]] && sudo "$tool" -Su "$@" || "$tool" -Su "$@"
       fi
       ;;
     clean|c)
@@ -93,20 +155,15 @@ __arch_aptstyle() {
       fi
       ;;
     list|ls)
-      local aur_flag=false official_flag=false all_flag=false
-      local packages=()
+      local upgradable_only=false installed_only=false
       while [[ $# -gt 0 ]]; do
         case "$1" in
-          --aur)
-            aur_flag=true
+          --upgradable)
+            upgradable_only=true
             shift
             ;;
-          --official)
-            official_flag=true
-            shift
-            ;;
-          --all)
-            all_flag=true
+          --installed)
+            installed_only=true
             shift
             ;;
           -*)
@@ -114,56 +171,37 @@ __arch_aptstyle() {
             return 1
             ;;
           *)
-            packages+=("$1")
-            shift
+            break
             ;;
         esac
       done
 
-      if (( aur_flag + official_flag + all_flag > 1 )); then
-        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify more than one of --aur, --official, or --all simultaneously.\033[0m" >&2
-        return 1
-      elif $aur_flag; then
-        if [[ "$tool" == "pacman" ]]; then
-          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
-          return 1
-        fi
-        if [[ ${#packages[@]} -eq 0 ]]; then
-          "$tool" -Slq --aur | awk '{print "[AUR] " $0}'
-        else
-          for pkg in "${packages[@]}"; do
-            "$tool" -Ss "$pkg" | awk '{print "[AUR] " $0}'
-          done
-        fi
-      elif $official_flag; then
-        if [[ ${#packages[@]} -eq 0 ]]; then
-          pacman -Slq | awk '{print "[official] " $0}'
-        else
-          pacman -Ss "${packages[@]}" | awk '{print "[official] " $0}'
-        fi
-      elif $all_flag; then
-        if [[ ${#packages[@]} -eq 0 ]]; then
-          pacman -Slq | awk '{print "[official] " $0}'
-          if [[ "$tool" != "pacman" ]]; then
-            "$tool" -Slq --aur | awk '{print "[AUR] " $0}'
+      local upgradable_packages=()
+      upgradable_packages=("${(@f)$("$tool" -Qu)}")
+
+      for package in $($tool -Q); do
+        pkg_name=$(echo "$package" | awk '{print $1}')
+        pkg_version=$(echo "$package" | awk '{print $2}')
+        is_upgradable=false
+
+        for upgradable_package in "${upgradable_packages[@]}"; do
+          upgradable_pkg_name=$(echo "$upgradable_package" | awk '{print $1}')
+          if [[ "$pkg_name" == "$upgradable_pkg_name" ]]; then
+            is_upgradable=true
+            break
           fi
-        else
-          pacman -Ss "${packages[@]}" | awk '{print "[official] " $0}'
-          if [[ "$tool" != "pacman" ]]; then
-            for pkg in "${packages[@]}"; do
-              "$tool" -Ss "$pkg" | awk '{print "[AUR] " $0}'
-            done
-          fi
+        done
+
+        if $upgradable_only && ! $is_upgradable; then
+          continue
         fi
-      else
-        if [[ ${#packages[@]} -eq 0 ]]; then
-          "$tool" -Q | awk '{print "[local] " $0}'
-        else
-          for pkg in "${packages[@]}"; do
-            "$tool" -Q "$pkg" | awk '{print "[local] " $0}'
-          done
+
+        if $installed_only && $is_upgradable; then
+          continue
         fi
-      fi
+
+        echo "$pkg_name $pkg_version"
+      done
       ;;
     orphan|orphans)
       "$tool" -Qtd "$@"
@@ -183,7 +221,7 @@ __arch_aptstyle() {
           "$tool" -Rns "${orphans[@]}" "$@"
         fi
       else
-        echo -e "\033[1;32m[I] arch-aptstyle:No orphan packages to remove.\033[0m"
+        echo -e "\033[1;32m[I] arch-aptstyle: No orphan packages to remove.\033[0m"
       fi
       ;;
     check|ck)
@@ -205,7 +243,7 @@ __arch_aptstyle() {
   esac
 }
 
-# main function
+# aliases
 parua()   { __arch_aptstyle paru "$@"; }
 yaya()    { __arch_aptstyle yay "$@"; }
 pacmana() { __arch_aptstyle pacman "$@"; }

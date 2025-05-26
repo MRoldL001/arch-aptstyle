@@ -1,4 +1,5 @@
 > Read this in [English](README_EN.md)
+
 # arch-aptstyle
 
 **arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户提供类 `apt` 的包管理命令封装。
@@ -86,12 +87,12 @@ source ~/.zshrc
 
 #### 系统维护
 
-| 子命令                  | pacman 命令       | yay/paru 命令       | 支持情况        | 说明      |
-| -------------------- | --------------- | ----------------- | ----------- | ------- |
-| `clean` / `c`        | *不支持*           | `paru/yay -Sc`    | ❌ pacman不支持 | 清理缓存包   |
-| `orphan` / `orphans` | `pacman -Qtd`   | `paru/yay -Qtd`   | ✅ 全部支持      | 列出孤儿包   |
+| 子命令                  | pacman 命令       | yay/paru 命令       | 支持情况        | 说明               |
+| -------------------- | --------------- | ----------------- | ----------- | ---------------- |
+| `clean` / `c`        | *不支持*           | `paru/yay -Sc`    | ❌ pacman不支持 | 清理缓存包            |
+| `orphan` / `orphans` | `pacman -Qtd`   | `paru/yay -Qtd`   | ✅ 全部支持      | 列出孤儿包            |
 | `autoremove / ar`    | *使用pacman -Rns* | _使用paru/yay -Rns_ | ✅ 全部支持      | 自动删除孤儿包 *(谨慎使用)* |
-| `check` / `ck`       | `pacman -Qk`    | `paru/yay -Qk`    | ✅ 全部支持      | 检查包完整性  |
+| `check` / `ck`       | `pacman -Qk`    | `paru/yay -Qk`    | ✅ 全部支持      | 检查包完整性           |
 
 #### 高级操作
 
@@ -119,13 +120,14 @@ source ~/.zshrc
 
 ### 常见提示信息及应对指南
 
-| 提示信息               | 应对方法 |
-| ------------------ | ------- |
-| `[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.` | 该插件专为 `Arch Linux` 或 基于 `Arch` 的 Linux 发行版设计，`pacman`如果不存在的话大概率说明你在使用其它发行版 |
-| `[E] arch-aptstyle: ... does not support ... ` | 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令 |
-| `[I] arch-aptstyle:No orphan packages to remove.` | 你没有孤儿包，不需要清理 |
-| `[E] arch-aptstyle: ... autoremove failed.` | 请通过issue报告给开发者 |
-| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少参数，参见**命令对照表** |
+| 提示信息                                                                      | 应对方法                                                                       |
+| ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.`  | 该插件专为 `Arch Linux` 或 基于 `Arch` 的 Linux 发行版设计，`pacman`如果不存在的话大概率说明你在使用其它发行版 |
+| `[E] arch-aptstyle: ... does not support ... `                            | 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令                                              |
+| `[I] arch-aptstyle:No orphan packages to remove.`                         | 你没有孤儿包，不需要清理                                                               |
+| `[E] arch-aptstyle: ... autoremove failed.`                               | 请通过issue报告给开发者                                                             |
+| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少参数，参见**命令对照表**                                                           |
 
 ## ✨ 致谢
+
 - 感谢 [sskka235](https://github.com/sskka235) 为 `dev` 版本所提供的测试支持
