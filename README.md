@@ -5,7 +5,7 @@
 > 英文版 README 很长时间才会维护一次，建议查看本文档
 
 <div align="center">
-  <img src="logo.png" alt="LOGO" width="300">
+  <img src="apt-style.png" alt="LOGO" width="300">
 </div>
 
 # arch-aptstyle
