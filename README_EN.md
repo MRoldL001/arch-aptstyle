@@ -1,5 +1,7 @@
 > Translated by ChatGPT, not reviewed.  阅读[简体中文](README_ZH.md)版本
 
+> This document has not been maintained for a long time. It is recommended to visit the Simplified Chinese version.
+
 # arch-aptstyle
 
 **arch-aptstyle** is a *"rebellious"* `zsh` script for **Arch Linux**, designed to provide Debian/Ubuntu-style `apt` command wrappers for users transitioning from those distributions.
