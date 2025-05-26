@@ -1,5 +1,9 @@
 > Read this in [English](README_EN.md)
 
+> The English version of the README is updated infrequently. It is recommended to refer to this file instead.
+
+> 英文版 README 很长时间才会维护一次，建议查看本文件
+
 # arch-aptstyle
 
 **arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户提供类 `apt` 的包管理命令封装。
