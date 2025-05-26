@@ -2,6 +2,10 @@
 
 > This document has not been maintained for a long time. It is recommended to visit the Simplified Chinese version.
 
+<div align="center">
+  <img src="arch-aptstyle.png" alt="LOGO" width="300">
+</div>
+
 # arch-aptstyle
 
 **arch-aptstyle** is a *"rebellious"* `zsh` script for **Arch Linux**, designed to provide Debian/Ubuntu-style `apt` command wrappers for users transitioning from those distributions.
