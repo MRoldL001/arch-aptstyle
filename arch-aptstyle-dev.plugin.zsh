@@ -97,8 +97,8 @@ __arch_aptstyle() {
         esac
       done
 
-      if $installed_flag && $aur_flag; then
-        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both --installed and --aur simultaneously.\033[0m" >&2
+      if (( installed_flag + aur_flag > 1 )); then
+          echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both options at the same time.\033[0m" >&2
         return 1
       elif $installed_flag; then
         if [[ "$tool" == "pacman" ]]; then
