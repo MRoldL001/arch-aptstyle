@@ -146,8 +146,10 @@ source ~/.zshrc
   - 删除了子命令 diff, why
   - 将子命令 info 更名为 show 以与 apt 的子命令一致
   - 重构了子命令 show, list, search 现在它们更加符合你的习惯了
-- dev2025527-00051:
+- dev2025527-0051:
   - 修复了子命令 search 的一系列 bug
+- dev2025527-0147
+  - 修复了子命令 list 的一系列 bug，加入了新选项 --unofficial，用来列出所有非官方本地包
 
 ## ✨ 致谢
 
