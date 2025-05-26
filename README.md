@@ -139,11 +139,11 @@ source ~/.zshrc
   - 将子命令 info 更名为 show 以与 apt 的子命令一致
   - 重构了子命令 show, list, search 现在它们更加符合你的习惯了
 
-- dev2025527-0051:
+- dev20250527-0051:
   
   - 修复了子命令 search 的一系列 bug
 
-- dev2025527-0147:
+- dev20250527-0147:
   
   - 修复了子命令 list 的一系列 bug，加入了新选项 --unofficial，用来列出所有非官方本地包
 
@@ -151,9 +151,13 @@ source ~/.zshrc
   
   - 修复了子命令 clean 和 download 的一系列 bug
 
-- dev2025527-0217: (v1.0.0-BakaTesutoShokanju)
+- dev20250527-0217: (v1.0.0-BakaTesutoShokanju)
   
   - 修复了子命令 update 和 upgrade 的一系列bug
+
+- dev20250527-0229: (v1.0.0-BakaTesutoShokanju)
+
+  - 十分微小的改动，懒得写
 
 ## ✨ 致谢
 
