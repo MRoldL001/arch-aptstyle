@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="2025527-0147"
+aas_version="2025527-0217"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -66,57 +66,19 @@ __arch_aptstyle() {
         fi
       fi
       ;;
+      
     update|upd)
-      local aur_flag=false
-      while [[ $# -gt 0 ]]; do
-        case "$1" in
-          --aur)
-            aur_flag=true
-            shift
-            ;;
-          *)
-            break
-            ;;
-        esac
-      done
-
-      if $aur_flag; then
-        if [[ "$tool" == "pacman" ]]; then
-          echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
-          return 1
-        fi
-        "$tool" -Sy "$@"
-      else
-        [[ "$tool" == "pacman" ]] && sudo "$tool" -Sy "$@" || "$tool" -Sy "$@"
-      fi
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sy "$@" || "$tool" -Sy "$@"
       ;;
+
     upgrade|upg)
-      local aur_flag=false
-      while [[ $# -gt 0 ]]; do
-        case "$1" in
-          --aur)
-            aur_flag=true
-            shift
-            ;;
-          *)
-            break
-            ;;
-        esac
-      done
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Su "$@" || "$tool" -Su "$@"
+      ;;
 
-      if $aur_flag; then
-        "$tool" -Su "$@"
-      else
-        [[ "$tool" == "pacman" ]] && sudo "$tool" -Su "$@" || "$tool" -Su "$@"
-      fi
-      ;;
     clean|c)
-      if [[ "$tool" == "pacman" ]]; then
-        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the clean operation.\033[0m" >&2
-        return 1
-      fi
-      "$tool" -Sc "$@"
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sc "$@" || "$tool" -Sc "$@"
       ;;
+
     show)
       local installed_flag=false aur_flag=false
       while [[ $# -gt 0 ]]; do
@@ -239,11 +201,7 @@ __arch_aptstyle() {
       "$tool" -Qk "$@"
       ;;
     download|dl)
-      if [[ "$tool" == "pacman" ]]; then
-        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the download operation.\033[0m" >&2
-        return 1
-      fi
-      "$tool" -Sw "$@"
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sw "$@" || "$tool" -Sw "$@"
       ;;
     help|-h|--help)
       "$tool" --help
