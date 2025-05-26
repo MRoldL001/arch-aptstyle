@@ -1,7 +1,10 @@
-> Read this in [English](README_EN.md)
+> [!TIPS]
+> You can read this in [English](README_EN.md)
 
+> [!IMPORTANT]
 > The English version of the README is updated infrequently. It is recommended to refer to this file instead.
 
+> [!IMPORTANT]
 > 英文版 README 很长时间才会维护一次，建议查看本文档
 
 <div align="center">
