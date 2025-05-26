@@ -1,4 +1,5 @@
-# version: 20250524-912
+# version
+aas_version = "2025526-2003"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -8,7 +9,6 @@ if [[ $- == *i* ]]; then
 fi
 
 # main
-
 # general function
 __arch_aptstyle() {
   if [[ $# -lt 2 ]]; then
@@ -29,11 +29,23 @@ __arch_aptstyle() {
       "$tool" -Ss "$@"
       ;;
     update|upgrade|up|u)
-      if [[ "$1" == "--aur" ]]; then
-        shift
+      local aur_flag=false
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          --aur)
+            aur_flag=true
+            shift
+            ;;
+          *)
+            break
+            ;;
+        esac
+      done
+
+      if $aur_flag; then
         "$tool" -Syua "$@"
       else
-        [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu || "$tool" -Syu "$@"
+        [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu "$@" || "$tool" -Syu "$@"
       fi
       ;;
     clean|c)
@@ -43,9 +55,34 @@ __arch_aptstyle() {
       fi
       "$tool" -Sc "$@"
       ;;
-    info)
-      if [[ "$1" == "--aur" ]]; then
-        shift
+    show)
+      local installed_flag=false aur_flag=false
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          --installed)
+            installed_flag=true
+            shift
+            ;;
+          --aur)
+            aur_flag=true
+            shift
+            ;;
+          *)
+            break
+            ;;
+        esac
+      done
+
+      if $installed_flag && $aur_flag; then
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both --installed and --aur simultaneously.\033[0m" >&2
+        return 1
+      elif $installed_flag; then
+        if [[ "$tool" == "pacman" ]]; then
+          "$tool" -Qi "$@"
+        else
+          "$tool" -Qi "$@"
+        fi
+      elif $aur_flag; then
         if [[ "$tool" == "pacman" ]]; then
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
           return 1
@@ -56,15 +93,76 @@ __arch_aptstyle() {
       fi
       ;;
     list|ls)
-      if [[ "$1" == "--aur" ]]; then
-        shift
+      local aur_flag=false official_flag=false all_flag=false
+      local packages=()
+      while [[ $# -gt 0 ]]; do
+        case "$1" in
+          --aur)
+            aur_flag=true
+            shift
+            ;;
+          --official)
+            official_flag=true
+            shift
+            ;;
+          --all)
+            all_flag=true
+            shift
+            ;;
+          -*)
+            echo -e "\033[1;31m[E] arch-aptstyle:list: unknown option '$1'\033[0m" >&2
+            return 1
+            ;;
+          *)
+            packages+=("$1")
+            shift
+            ;;
+        esac
+      done
+
+      if (( aur_flag + official_flag + all_flag > 1 )); then
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify more than one of --aur, --official, or --all simultaneously.\033[0m" >&2
+        return 1
+      elif $aur_flag; then
         if [[ "$tool" == "pacman" ]]; then
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
           return 1
         fi
-        "$tool" -Qm "$@"
+        if [[ ${#packages[@]} -eq 0 ]]; then
+          "$tool" -Slq --aur | awk '{print "[AUR] " $0}'
+        else
+          for pkg in "${packages[@]}"; do
+            "$tool" -Ss "$pkg" | awk '{print "[AUR] " $0}'
+          done
+        fi
+      elif $official_flag; then
+        if [[ ${#packages[@]} -eq 0 ]]; then
+          pacman -Slq | awk '{print "[official] " $0}'
+        else
+          pacman -Ss "${packages[@]}" | awk '{print "[official] " $0}'
+        fi
+      elif $all_flag; then
+        if [[ ${#packages[@]} -eq 0 ]]; then
+          pacman -Slq | awk '{print "[official] " $0}'
+          if [[ "$tool" != "pacman" ]]; then
+            "$tool" -Slq --aur | awk '{print "[AUR] " $0}'
+          fi
+        else
+          pacman -Ss "${packages[@]}" | awk '{print "[official] " $0}'
+          if [[ "$tool" != "pacman" ]]; then
+            for pkg in "${packages[@]}"; do
+              "$tool" -Ss "$pkg" | awk '{print "[AUR] " $0}'
+            done
+          fi
+        fi
       else
-        "$tool" -Q "$@"
+        if [[ ${#packages[@]} -eq 0 ]]; then
+          "$tool" -Q | awk '{print "[local] " $0}'
+        else
+          for pkg in "${packages[@]}"; do
+            "$tool" -Q "$pkg" | awk '{print "[local] " $0}'
+          done
+        fi
       fi
       ;;
     orphan|orphans)
@@ -97,16 +195,6 @@ __arch_aptstyle() {
         return 1
       fi
       "$tool" -Sw "$@"
-      ;;
-    diff)
-      if [[ "$tool" == "pacman" ]]; then
-        echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support the diff operation.\033[0m" >&2
-        return 1
-      fi
-      "$tool" -Du --diff "$@"
-      ;;
-    why)
-      "$tool" -Qi "$@"
       ;;
     help|-h|--help)
       "$tool" --help
