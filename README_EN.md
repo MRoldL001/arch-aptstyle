@@ -1,4 +1,5 @@
 > Translated by ChatGPT, not reviewed.  阅读[简体中文](README.md)版本
+
 > This document has not been maintained for a long time. It is recommended to visit the Simplified Chinese version.
 
 # arch-aptstyle
