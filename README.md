@@ -128,7 +128,8 @@ source ~/.zshrc
 | `[E] arch-aptstyle: ... does not support ... `                            | 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令                                              |
 | `[I] arch-aptstyle:No orphan packages to remove.`                         | 你没有孤儿包，不需要清理                                                               |
 | `[E] arch-aptstyle: ... autoremove failed.`                               | 请通过issue报告给开发者                                                             |
-| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少参数，参见**命令对照表**                                                           |
+| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | 缺少子命令，参见**命令对照表**                                                           |
+| `[E] arch-aptstyle:list: unknown option ...` | 输入的选项未知，参见**命令对照表**                                                           || `[E] arch-aptstyle: Cannot specify both options at the same time.` | 请不要同时使用多个参数                                                     |
 
 ## 更新日志(dev版本)
 
