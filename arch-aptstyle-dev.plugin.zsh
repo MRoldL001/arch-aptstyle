@@ -56,13 +56,13 @@ __arch_aptstyle() {
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
           return 1
         fi
-        "$tool" -Ss "$@" | awk '{print "[AUR] " $0}'
+        "$tool" -Ss --aur "$@" | awk '{print "[AUR] " $0}'
       elif $official_flag; then
         pacman -Ss "$@" | awk '{print "[OFFICIAL] " $0}'
       else
         pacman -Ss "$@" | awk '{print "[OFFICIAL] " $0}'
         if [[ "$tool" != "pacman" ]]; then
-          "$tool" -Ss "$@" | awk '{print "[AUR] " $0}'
+          "$tool" -Ss --aur "$@" | awk '{print "[AUR] " $0}'
         fi
       fi
       ;;
