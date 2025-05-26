@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="2025527-0229"
+aas_version=$(<VERSION)
 
 # error message
 if [[ $- == *i* ]]; then
