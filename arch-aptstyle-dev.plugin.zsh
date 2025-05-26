@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="2025527-0051"
+aas_version="2025527-0147"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -49,7 +49,7 @@ __arch_aptstyle() {
       done
 
       if (( aur_flag + official_flag > 1 )); then
-        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify more than one of --aur or --official simultaneously.\033[0m" >&2
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both options at the same time.\033[0m" >&2
         return 1
       elif $aur_flag; then
         if [[ "$tool" == "pacman" ]]; then
@@ -155,54 +155,65 @@ __arch_aptstyle() {
       fi
       ;;
     list|ls)
-      local upgradable_only=false installed_only=false
+      local upgradable_flag=false installed_flag=false unofficial_flag=false
       while [[ $# -gt 0 ]]; do
         case "$1" in
-          --upgradable)
-            upgradable_only=true
-            shift
-            ;;
-          --installed)
-            installed_only=true
-            shift
-            ;;
-          -*)
-            echo -e "\033[1;31m[E] arch-aptstyle:list: unknown option '$1'\033[0m" >&2
-            return 1
-            ;;
-          *)
-            break
-            ;;
+        --upgradable)
+          upgradable_flag=true
+          shift
+          ;;
+        --installed)
+          installed_flag=true
+          shift
+        ;;
+        --unofficial)
+          unofficial_flag=true
+          shift
+        ;;
+        -*)
+          echo -e "\033[1;31m[E] arch-aptstyle:list: unknown option '$1'\033[0m" >&2
+          return 1
+        ;;
+        *)
+          break
+        ;;
         esac
       done
 
-      local upgradable_packages=()
-      upgradable_packages=("${(@f)$("$tool" -Qu)}")
+      if (( upgradable_flag + installed_flag + unofficial_flag > 1 )); then
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both options at the same time.\033[0m" >&2
+        return 1
+      elif $unofficial_flag; then
+        "$tool" -Qm "$@"
+      else
+        local upgradable_packages=()
+        upgradable_packages=("${(@f)$("$tool" -Qu)}")
 
-      for package in $($tool -Q); do
-        pkg_name=$(echo "$package" | awk '{print $1}')
-        pkg_version=$(echo "$package" | awk '{print $2}')
-        is_upgradable=false
+        for package in $($tool -Q); do
+          pkg_name=$(echo "$package" | awk '{print $1}')
+          pkg_version=$(echo "$package" | awk '{print $2}')
+          is_upgradable=false
 
-        for upgradable_package in "${upgradable_packages[@]}"; do
-          upgradable_pkg_name=$(echo "$upgradable_package" | awk '{print $1}')
-          if [[ "$pkg_name" == "$upgradable_pkg_name" ]]; then
-            is_upgradable=true
-            break
-          fi
+          for upgradable_package in "${upgradable_packages[@]}"; do
+            upgradable_pkg_name=$(echo "$upgradable_package" | awk '{print $1}')
+            if [[ "$pkg_name" == "$upgradable_pkg_name" ]]; then
+              is_upgradable=true
+              break
+            fi
         done
 
-        if $upgradable_only && ! $is_upgradable; then
+        if $upgradable_flag && ! $is_upgradable; then
           continue
         fi
 
-        if $installed_only && $is_upgradable; then
+        if $installed_flag && $is_upgradable; then
           continue
         fi
 
         echo "$pkg_name $pkg_version"
       done
-      ;;
+    fi
+    ;;
     orphan|orphans)
       "$tool" -Qtd "$@"
       ;;
