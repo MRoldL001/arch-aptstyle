@@ -157,7 +157,7 @@ source ~/.zshrc
   
   - 修复了子命令 update 和 upgrade 的一系列bug
 
-- dev20250527-0229: **(v1.0.0-BakaTesutoShokanju)**
+- **v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 
 
   - 修复了一些 bug
 
