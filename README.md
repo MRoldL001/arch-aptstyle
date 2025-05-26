@@ -2,7 +2,7 @@
 
 > The English version of the README is updated infrequently. It is recommended to refer to this file instead.
 
-> 英文版 README 很长时间才会维护一次，建议查看本文件
+> 英文版 README 很长时间才会维护一次，建议查看本文档
 
 <div align="center">
   <img src="logo.png" alt="LOGO" width="300">
