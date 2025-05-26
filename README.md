@@ -1,7 +1,10 @@
-> Read this in [English](README_EN.md)
+> [!TIP]
+> You can read this in [English](README_EN.md)
 
+> [!IMPORTANT]
 > The English version of the README is updated infrequently. It is recommended to refer to this file instead.
 
+> [!IMPORTANT]
 > 英文版 README 很长时间才会维护一次，建议查看本文档
 
 <div align="center">
@@ -119,14 +122,13 @@ source ~/.zshrc
 | `download` / `dl`        |     | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
 | `help` / `-h` / `--help` |     | `pacman --help` | `paru/ysy --help` | ✅ 全部支持 | 显示帮助信息 |
 
-#### 注意事项
-
-- 上表未列出的子命令会直接透传给原生命令
-- pacman 需要 `sudo` 权限的操作会自动添加，请不要主动添加 `sudo` 
-- `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
-- ~~`update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新官方仓库的所有包~~
-- 现在，`update` 和 `upgrade` 是解耦的，你可以通过它们将更新包缓存与升级软件包分开处理
-- list 和 search 可能存在 BUG，如果遇到请在 issues 中提出
+> [!IMPORTANT]
+> - 上表未列出的子命令会直接透传给原生命令
+> - pacman 需要 `sudo` 权限的操作会自动添加，请不要主动添加 `sudo` 
+> - `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
+> - ~~`update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新官方仓库的所有包~~
+> - 现在，`update` 和 `upgrade` 是解耦的，你可以通过它们将更新包缓存与升级软件包分开处理
+> - list 和 search 可能存在 BUG，如果遇到请在 issues 中提出
 
 ### 常见提示信息及应对指南
 
@@ -140,34 +142,38 @@ source ~/.zshrc
 | `[E] arch-aptstyle:list: unknown option ...` | 输入的选项未知，参见**命令对照表**                                                           | 
 | `[E] arch-aptstyle: Cannot specify both options at the same time.` | 请不要同时使用多个参数                                                     |
 
-## ⬆️ 更新日志
+## 📝 更新日志
 
-- dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)
+- 	dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)✨♻️🔥
   
-  - 解耦了 update 和 upgrade
-  - 删除了子命令 diff, why
-  - 将子命令 info 更名为 show 以与 apt 的子命令一致
-  - 重构了子命令 show, list, search 现在它们更加符合你的习惯了
+    - 解耦了 update 和 upgrade
+    - 删除了子命令 diff, why
+    - 将子命令 info 更名为 show 以与 apt 的子命令一致
+    - 重构了子命令 show, list, search 现在它们更加符合你的习惯了
+    - 重构了一部分代码的实现方法
 
-- dev20250527-0051:
+- dev20250527-0051:	 🐛
   
-  - 修复了子命令 search 的一系列 bug
+    - 修复了子命令 search 的一系列 bug
 
-- dev20250527-0147:
+- 	dev20250527-0147:	 🐛♻️
   
-  - 修复了子命令 list 的一系列 bug，加入了新选项 --unofficial，用来列出所有非官方本地包
+    - 修复了子命令 list 的一系列 bug，加入了新选项项 --unofficial，用来列出所有非官方本地包
+  - 重构了多参数判断和 flag 类变量命名，使整体保持统一
 
-- dev2025527-0205:
+- 	dev2025527-0205: 	🐛
   
-  - 修复了子命令 clean 和 download 的一系列 bug
+    - 修复了子命令 clean 和 download 的一系列 bug
 
-- dev20250527-0217:
+- 	dev20250527-0217: 🐛
   
-  - 修复了子命令 update 和 upgrade 的一系列bug
+    - 修复了子命令 update 和 upgrade 的一系列bug
 
-- **v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 
+- 	**v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 	🐛♻️🚀
 
-  - 修复了一些 bug
+    - 重构了 show 判断多参数的逻辑
+    - 修复了一些微小的 bug
+    - 现在它准备好作为正式版来被发布了
 
 ## ✨ 致谢
 
