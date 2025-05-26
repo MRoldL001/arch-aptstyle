@@ -1,4 +1,4 @@
-> Translated by ChatGPT, not reviewed.  阅读[简体中文](README.md)版本
+> Translated by ChatGPT, not reviewed.  阅读[简体中文](README_ZH.md)版本
 
 # arch-aptstyle
 
