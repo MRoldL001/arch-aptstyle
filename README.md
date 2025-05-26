@@ -106,7 +106,7 @@ source ~/.zshrc
 
 | 子命令                 | 选项  | pacman 命令        | yay/paru 命令         | 支持情况   | 说明               |
 | ------------------- | --- | ---------------- | ------------------- | ------ | ---------------- |
-| `clean` / `c`       |     | `pacman -Sc`     | `paru/yay -Sc`      | ✅ 全部支持 | 清理缓存包            |
+| `clean` / `c`       |     | `sudo pacman -Sc`     | `paru/yay -Sc`      | ✅ 全部支持 | 清理缓存包            |
 | `autoremove` / `ar` |     | *使用了pacman -Rns* | **使用了paru/yay -Rns* | ✅ 全部支持 | 自动删除孤儿包 *(谨慎使用)* |
 | `check` / `ck`      |     | `pacman -Qk`     | `paru/yay -Qk`      | ✅ 全部支持 | 检查包完整性           |
 
@@ -116,7 +116,7 @@ source ~/.zshrc
 
 | 子命令                      | 选项  | pacman 命令       | yay/paru 命令       | 支持情况   | 说明     |
 | ------------------------ | --- | --------------- | ----------------- | ------ | ------ |
-| `download` / `dl`        |     | `pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
+| `download` / `dl`        |     | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
 | `help` / `-h` / `--help` |     | `pacman --help` | `paru/ysy --help` | ✅ 全部支持 | 显示帮助信息 |
 
 #### 注意事项
