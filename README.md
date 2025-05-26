@@ -4,6 +4,10 @@
 
 > 英文版 README 很长时间才会维护一次，建议查看本文件
 
+<div align="center">
+  <img src="logo.png" alt="LOGO" width="300">
+</div>
+
 # arch-aptstyle
 
 **arch-aptstyle** 是一个 *“离经叛道式”* 的用于 **Arch Linux** 的 `zsh` 脚本，旨在为来自 **Debian**、**Ubuntu** 等发行版的用户提供类 `apt` 的包管理命令封装。
@@ -136,7 +140,7 @@ source ~/.zshrc
 | `[E] arch-aptstyle:list: unknown option ...` | 输入的选项未知，参见**命令对照表**                                                           | 
 | `[E] arch-aptstyle: Cannot specify both options at the same time.` | 请不要同时使用多个参数                                                     |
 
-## 更新日志(dev版本)
+## ⬆️ 更新日志
 
 - dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)
   
