@@ -1,5 +1,7 @@
-> Translated by ChatGPT, not reviewed.  阅读[简体中文](README.md)版本
+> [!TIP]
+> Translated by ChatGPT, not reviewed.  你可以阅读[简体中文](README.md)版本
 
+> [!IMPORTANT]
 > This document has not been maintained for a long time. It is recommended to visit the Simplified Chinese version.
 
 <div align="center">
