@@ -159,7 +159,7 @@ source ~/.zshrc
 
 - dev20250527-0229: **(v1.0.0-BakaTesutoShokanju)**
 
-  - 十分微小的改动，懒得写
+  - 修复了一些 bug
 
 ## ✨ 致谢
 
