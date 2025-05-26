@@ -1,4 +1,4 @@
-> [!TIPS]
+> [!TIP]
 > You can read this in [English](README_EN.md)
 
 > [!IMPORTANT]
