@@ -122,7 +122,7 @@ source ~/.zshrc
 | `download` / `dl`        |     | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
 | `help` / `-h` / `--help` |     | `pacman --help` | `paru/ysy --help` | ✅ 全部支持 | 显示帮助信息 |
 
-> [!WARNING|label:注意事项]
+> [!IMPORTANT]
 > - 上表未列出的子命令会直接透传给原生命令
 > - pacman 需要 `sudo` 权限的操作会自动添加，请不要主动添加 `sudo` 
 > - `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
