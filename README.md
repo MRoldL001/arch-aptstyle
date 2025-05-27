@@ -176,7 +176,7 @@ source ~/.zshrc
     - 修复了一些微小的 bug
     - 现在它准备好作为正式版来被发布了
 
-- **v1.0.1-BakaTesutoShokanju**(dev20250527): 📝
+- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
 
     - 大幅更新了 README
 
