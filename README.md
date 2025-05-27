@@ -134,7 +134,7 @@ source ~/.zshrc
 
 | 提示信息                                                                      | 应对方法                                                                       |
 | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.`  | 该插件专为 `Arch Linux` 或 基于 `Arch` 的 Linux 发行版设计，`pacman`如果不存在的话大概率说明你在使用其它发行版 |
+| `<font color="red">[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.</font>`  | 该插件专为 `Arch Linux` 或 基于 `Arch` 的 Linux 发行版设计，`pacman`如果不存在的话大概率说明你在使用其它发行版 |
 | `[E] arch-aptstyle: ... does not support ... `                            | 你所使用的包管理器不支持该操作，更换包管理器或使用其他命令                                              |
 | `[I] arch-aptstyle:No orphan packages to remove.`                         | 你没有孤儿包，不需要清理                                                               |
 | `[E] arch-aptstyle: ... autoremove failed.`                               | 请通过issue报告给开发者                                                             |
