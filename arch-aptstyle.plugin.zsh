@@ -75,6 +75,10 @@ __arch_aptstyle() {
       [[ "$tool" == "pacman" ]] && sudo "$tool" -Su "$@" || "$tool" -Su "$@"
       ;;
 
+    u|up|Syu)
+      [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu "$@" || "$tool" -Su "$@"
+      ;;
+
     clean|c)
       [[ "$tool" == "pacman" ]] && sudo "$tool" -Sc "$@" || "$tool" -Sc "$@"
       ;;
