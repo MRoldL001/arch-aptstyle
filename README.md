@@ -179,8 +179,11 @@ source ~/.zshrc
 - **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
 
     - 大幅更新了 README
-
     - 添加了一个全新的项目 logo
+  
+- dev20250606-1340: ✨
+
+    - 加入了新的子命令 up(u|Syu), 与 -Syu 等价，可以同时更新包缓存和包
 
 ## ✨ 致谢
 
