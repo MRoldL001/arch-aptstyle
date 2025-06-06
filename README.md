@@ -84,6 +84,7 @@ source ~/.zshrc
 | `uninstall` / `remove` / `rm` / `r` |              | `sudo pacman -Rns` | `paru/yay -Rns`                     | ✅ 全部支持      | 彻底删除软件包（含依赖） |
 | `update` / `upd`                    |              | `sudo pacman -Sy`  | `paru/yay -Sy`                      | ✅ 全部支持      | 更新包缓存，pacman仅更新官方包缓存    |
 | `upgrade` / `upg`                   |              | `sudo pacman -Su`  | `paru/yay -Su`                      | ✅ 全部支持      | 更新所有包，pacman仅更新官方包    |
+| `upe` / `u` / `Syu`                 |              | `sudo pacman -Syu` | `paru/yay -Syu`                      | ✅ 全部支持      | 更新包缓存与所有包，pacman仅更新官方包，这是 Arch 官方推荐的做法    |
 | `search` / `s`                      |              | `pacman -Ss`       | `pacman -Ss` 与 `paru/yay -Ss --aur` | ✅ 全部支持      | 搜索软件包        |
 | `search` / `s`                      | `--official` | `pacman -Ss`       | `pacman -Ss`                        | ✅ 全部支持      | 仅搜索官方包       |
 | `search` / `s`                      | `--aur`      | *不支持*              | `paru/yay -Ss --aur`                | ❌ pacman不支持 | 仅搜索AUR包      |
