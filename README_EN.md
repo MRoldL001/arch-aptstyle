@@ -187,11 +187,6 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
 
     - Added new subcommands up (u | Syu), equivalent to -Syu for updating both package database and packages
 
-- dev20250509-1400: 🐛
-
-    - Fixed issue #5: pacmana commands would show non-root error when command failed
-    - Fixed __aas_run() function logic to avoid re-running without sudo after sudo command failed
-
 - v1.0.1-BakaTesutoShokanju2: ♻️🐛⚡📝
 
     - Extracted common logic into helper function __aas_run()
@@ -200,6 +195,11 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
     - Optimized list subcommand efficiency using associative arrays instead of nested loops
     - Fixed inconsistent indentation
     - Fixed several minor bugs in README
+
+- dev20260510-0516: 🐛
+
+    - Fixed issue #5: pacmana commands would show non-root error when command failed
+    - Fixed __aas_run() function logic to avoid re-running without sudo after sudo command failed
 
 ## ✨ Acknowledgments
 
