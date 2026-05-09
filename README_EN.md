@@ -1,8 +1,11 @@
 > [!TIP]
-> Translated by ChatGPT, not reviewed.  你可以阅读[简体中文](README.md)版本
+> Translated by ChatGPT and Trae AI, not fully reviewed. You can read this in [简体中文](README.md)
 
 > [!IMPORTANT]
-> This document has not been maintained for a long time. It is recommended to visit the Simplified Chinese version.
+> The English version of the README is updated infrequently. It is recommended to refer to the Simplified Chinese version instead.
+
+> [!IMPORTANT]
+> 英文版 README 很长时间才会维护一次，建议查看本文档
 
 <div align="center">
   <img src="arch-aptstyle.png" alt="LOGO" width="300">
@@ -29,7 +32,7 @@ If you are using **Oh My Zsh**:
 
 ```zsh
 git clone https://github.com/mroldl001/arch-aptstyle.git ~/.oh-my-zsh/plugins
-````
+```
 
 ---
 
@@ -73,69 +76,126 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
 
 ### Command Mapping Table (with Description)
 
-#### Basic Operations
+#### 1. Basic Operations
 
-| Subcommand                          | pacman Command     | yay/paru Command | Supported | Description                     |
-| ----------------------------------- | ------------------ | ---------------- | --------- | ------------------------------- |
-| `install` / `i`                     | `sudo pacman -S`   | `paru/yay -S`    | ✅         | Install package                 |
-| `uninstall` / `remove` / `rm` / `r` | `sudo pacman -Rns` | `paru/yay -Rns`  | ✅         | Completely remove packages      |
-| `update` / `upgrade` / `up` / `u`   | `sudo pacman -Syu` | `paru/yay -Syu`  | ✅         | Update official repository pkgs |
-| Above with `--aur`                  | *Not Supported*    | `paru/yay -Syua` | ❌         | Update only AUR packages        |
-| `search` / `s`                      | `pacman -Ss`       | `paru/yay -Ss`   | ✅         | Search for packages             |
+| Subcommand                          | Options        | pacman Command     | yay/paru Command                    | Supported       | Description                     |
+| ----------------------------------- | -------------- | ------------------ | ----------------------------------- | --------------- | ------------------------------- |
+| `install` / `i`                     |                | `sudo pacman -S`   | `paru/yay -S`                       | ✅ All supported | Install package                 |
+| `uninstall` / `remove` / `rm` / `r` |                | `sudo pacman -Rns` | `paru/yay -Rns`                     | ✅ All supported | Completely remove packages      |
+| `update` / `upd`                    |                | `sudo pacman -Sy`  | `paru/yay -Sy`                      | ✅ All supported | Update package database         |
+| `upgrade` / `upg`                   |                | `sudo pacman -Su`  | `paru/yay -Su`                      | ✅ All supported | Upgrade all packages            |
+| `up` / `u` / `Syu`                  |                | `sudo pacman -Syu` | `paru/yay -Syu`                     | ✅ All supported | Update database and all packages, recommended by Arch |
+| `search` / `s`                      |                | `pacman -Ss`       | `pacman -Ss` and `paru/yay -Ss --aur` | ✅ All supported | Search for packages             |
+| `search` / `s`                      | `--official`   | `pacman -Ss`       | `pacman -Ss`                        | ✅ All supported | Search official packages only   |
+| `search` / `s`                      | `--aur`        | *Not Supported*    | `paru/yay -Ss --aur`                | ❌ pacman not supported | Search AUR packages only     |
 
-#### Package Info Queries
+---
 
-| Subcommand         | pacman Command  | yay/paru Command     | Supported | Description                                       |
-| ------------------ | --------------- | -------------------- | --------- | ------------------------------------------------- |
-| `info`             | `pacman -Si`    | `paru/yay -Si`       | ✅         | Show package information                          |
-| Above with `--aur` | *Not Supported* | `paru/yay -Si --aur` | ❌         | Show AUR package info                             |
-| `list` / `ls`      | `pacman -Q`     | `paru/yay -Q`        | ✅         | List installed packages (like `list --installed`) |
-| Above with `--aur` | *Not Supported* | `paru/yay -Qm`       | ❌         | List AUR-installed packages                       |
-| `why`              | `pacman -Qi`    | `paru/yay -Qi`       | ✅         | Show why a package is installed                   |
+#### 2. Package Information Queries
 
-#### System Maintenance
+| Subcommand         | Options         | pacman Command  | yay/paru Command     | Supported       | Description                     |
+| ------------------ | --------------- | -------------- | -------------------- | --------------- | ------------------------------- |
+| `show`             |                 | `pacman -Si`   | `paru/yay -Si`       | ✅ All supported | Show package information        |
+| `show`             | `--installed`   | `pacman -Qi`   | `paru/yay -Qi`       | ✅ All supported | Show installed package info     |
+| `show`             | `--aur`         | *Not Supported* | `paru/yay -Si --aur` | ❌ pacman not supported | Show AUR package info     |
+| `list` / `ls`      |                 | `pacman -Q`    | `paru/yay -Q`        | ✅ All supported | List all packages               |
+| `list` / `ls`      | `--upgradable`  | `pacman -Qu`   | `paru/yay -Qu`       | ✅ All supported | List upgradable packages        |
+| `list` / `ls`      | `--installed`   | `pacman -Q`    | `paru/yay -Q`        | ✅ All supported | List installed packages (excluding upgradable) |
+| `list` / `ls`      | `--unofficial`  | `paru/yay -Qm` | `paru/yay -Qm`       | ✅ All supported | List unofficial packages        |
+| `orphan` / `orphans` |               | `pacman -Qtd`  | `paru/yay -Qtd`      | ✅ All supported | List orphan packages            |
 
-| Subcommand           | pacman Command  | yay/paru Command | Supported | Description                            |
-| -------------------- | --------------- | ---------------- | --------- | -------------------------------------- |
-| `clean` / `c`        | *Not Supported* | `paru/yay -Sc`   | ❌         | Clean cache packages                   |
-| `orphan` / `orphans` | `pacman -Qtd`   | `paru/yay -Qtd`  | ✅         | List orphan packages                   |
-| `autoremove` / `ar`  | `pacman -Rns`   | `paru/yay -Rns`  | ✅         | Auto-remove orphans *(use cautiously)* |
-| `check` / `ck`       | `pacman -Qk`    | `paru/yay -Qk`   | ✅         | Check package integrity                |
+---
 
-#### Advanced Operations
+#### 3. System Maintenance
 
-| Subcommand        | pacman Command  | yay/paru Command      | Supported | Description       |
-| ----------------- | --------------- | --------------------- | --------- | ----------------- |
-| `download` / `dl` | *Not Supported* | `paru/yay -Sw`        | ❌         | Download only     |
-| `diff`            | *Not Supported* | `paru/yay -Du --diff` | ❌         | Show version diff |
+| Subcommand           | Options | pacman Command     | yay/paru Command | Supported   | Description                            |
+| ------------------- | ------- | ---------------- | ---------------- | ------- | -------------------------------------- |
+| `clean` / `c`       |         | `sudo pacman -Sc` | `paru/yay -Sc`   | ✅ All supported | Clean cache packages                   |
+| `autoremove` / `ar` |         | *uses pacman -Rns* | *uses paru/yay -Rns* | ✅ All supported | Auto-remove orphans *(use cautiously)* |
+| `check` / `ck`      |         | `pacman -Qk`     | `paru/yay -Qk`   | ✅ All supported | Check package integrity                |
 
-#### Miscellaneous
+---
 
-| Subcommand               | pacman Command  | yay/paru Command  | Supported | Description |
-| ------------------------ | --------------- | ----------------- | --------- | ----------- |
-| `help` / `-h` / `--help` | `pacman --help` | `paru/yay --help` | ✅         | Show help   |
+#### 4. Other Operations
 
-#### Notes
+| Subcommand               | Options | pacman Command       | yay/paru Command       | Supported   | Description |
+| ------------------------ | ------- | --------------- | ----------------- | ------- | ----------- |
+| `download` / `dl`        |         | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ All supported | Download only |
+| `help` / `-h` / `--help` |         | `pacman --help` | `paru/yay --help` | ✅ All supported | Show help   |
 
-* Subcommands not listed will be passed through to the original command.
-* `sudo` is automatically added for pacman commands that require root; it’s safe to use with or without.
-* `yaya` and `parua` depend on the respective tools (`yay`, `paru`) being installed without the `a`.
-* Both `update` and `upgrade` are wrappers for `--Syu`, so you can use either of these commands to update all packages from the official repositories.
-
-#### Implementation of `autoremove`
-
-Executes `-Qtdq` to get orphan package names, stores them in a variable `orphans`, and if non-empty, deletes them using the appropriate manager (`sudo` for pacman; none for paru/yay). If empty, displays a tip.
+> [!IMPORTANT]
+> - Subcommands not listed above will be passed through to the original command
+> - `sudo` is automatically added for pacman commands that require root; please do not manually add `sudo`
+> - `yaya` and `parua` commands depend on their respective package managers (without the trailing `a`) being installed
+> - ~~Both `update` and `upgrade` were wrappers for `--Syu`, and you could use either command to update all packages from official repositories~~
+> - Now, `update` and `upgrade` are decoupled, allowing you to separate updating the package database from upgrading packages
+> - `up`, `u`, and `Syu` all wrap `--Syu`, and you can use any of these commands to update all packages
+> - list and search may have bugs, please report any issues you encounter
 
 ### Common Prompts and How to Handle
 
-| Message                                                                   | Solution                                                              |
-| ------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.`  | This plugin is designed for Arch-based distros; `pacman` is required. |
-| `[E] arch-aptstyle: ... does not support ... `                            | Your manager doesn't support this command.                            |
-| `[I] arch-aptstyle:No orphan packages to remove.`                         | No orphan packages found.                                             |
-| `[E] arch-aptstyle: ... autoremove failed.`                               | Please report via issue.                                              |
-| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | Missing arguments; refer to the **Command Mapping Table**                     |
+| Message                                                                   | Solution                                                            |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.`  | This plugin is designed for Arch-based distros; if `pacman` is not found, you're probably using a different distribution |
+| `[E] arch-aptstyle: ... does not support ... `                            | Your package manager doesn't support this operation; switch managers or use a different command |
+| `[I] arch-aptstyle:No orphan packages to remove.`                         | No orphan packages found; no cleanup needed                         |
+| `[E] arch-aptstyle: ... autoremove failed.`                               | Please report via issue                                             |
+| `[E] arch-aptstyle: missing arguments. Usage: <tool> <command> [args...]` | Missing subcommand; refer to the **Command Mapping Table**          |
+| `[E] arch-aptstyle:list: unknown option ...` | Unknown option; refer to the **Command Mapping Table** | 
+| `[E] arch-aptstyle: Cannot specify both options at the same time.` | Please do not use multiple options simultaneously |
+
+## 🗒️ Changelog
+
+- dev2025527-0008: (Starting to track changes from this version, as it's the first dev version I consider usable)✨♻️🔥
+
+    - Decoupled update and upgrade
+    - Removed diff and why subcommands
+    - Renamed info subcommand to show for consistency with apt
+    - Refactored show, list, search subcommands for better usability
+    - Refactored some code implementation approaches
+
+- dev20250527-0051: 🐛
+
+    - Fixed various bugs in the search subcommand
+
+- dev20250527-0147: ✨🐛♻️
+
+    - Fixed various bugs in the list subcommand
+    - Added new --unofficial option to list subcommand for listing all unofficial local packages
+    - Refactored multi-option handling and flag variable naming for consistency
+
+- dev2025527-0205: 🐛
+
+    - Fixed various bugs in clean and download subcommands
+
+- dev20250527-0217: 🐛
+
+    - Fixed various bugs in update and upgrade subcommands
+
+- **v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 🐛♻️🚀
+
+    - Refactored show subcommand's multi-option logic
+    - Fixed some minor bugs
+    - Now ready for official release
+
+- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
+
+    - Significantly updated README
+    - Added a brand new project logo
+
+- dev20250606-1340: ✨
+
+    - Added new subcommands up (u | Syu), equivalent to -Syu for updating both package database and packages
+
+- v1.0.1-BakaTesutoShokanju2: ♻️🐛⚡📝
+
+    - Extracted common logic into helper function __aas_run()
+    - Fixed bug where u/up/Syu subcommands incorrectly used -Su for yay/paru
+    - Simplified redundant code in show subcommand
+    - Optimized list subcommand efficiency using associative arrays instead of nested loops
+    - Fixed inconsistent indentation
+    - Fixed several minor bugs in README
 
 ## ✨ Acknowledgments
 
-* Thanks to [sskka235](https://github.com/sskka235) for testing the `dev` version.
+- Thanks to [sskka235](https://github.com/sskka235) for testing the `dev` version.

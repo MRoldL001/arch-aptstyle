@@ -82,11 +82,12 @@ source ~/.zshrc
 | ----------------------------------- | ------------ | ------------------ | ----------------------------------- | ----------- | ------------ |
 | `install` / `i`                     |              | `sudo pacman -S`   | `paru/yay -S`                       | ✅ 全部支持      | 安装软件包        |
 | `uninstall` / `remove` / `rm` / `r` |              | `sudo pacman -Rns` | `paru/yay -Rns`                     | ✅ 全部支持      | 彻底删除软件包（含依赖） |
-| `update` / `upd`                    |              | `sudo pacman -Sy`  | `paru/yay -Sy`                      | ✅ 全部支持      | 更新包缓存，pacman仅更新官方包缓存    |
-| `upgrade` / `upg`                   |              | `sudo pacman -Su`  | `paru/yay -Su`                      | ✅ 全部支持      | 更新所有包，pacman仅更新官方包    |
+| `update` / `upd`                    |              | `sudo pacman -Sy`  | `paru/yay -Sy`                      | ✅ 全部支持      | 更新包缓存，pacman 仅更新官方包缓存    |
+| `upgrade` / `upg`                   |              | `sudo pacman -Su`  | `paru/yay -Su`                      | ✅ 全部支持      | 更新所有包，pacman 仅更新官方包    |
+| `up` / `u` / `Syu`                 |              | `sudo pacman -Syu` | `paru/yay -Syu`                      | ✅ 全部支持      | 更新包缓存与所有包，pacman 仅更新官方包，这是 Arch 官方推荐的做法    |
 | `search` / `s`                      |              | `pacman -Ss`       | `pacman -Ss` 与 `paru/yay -Ss --aur` | ✅ 全部支持      | 搜索软件包        |
 | `search` / `s`                      | `--official` | `pacman -Ss`       | `pacman -Ss`                        | ✅ 全部支持      | 仅搜索官方包       |
-| `search` / `s`                      | `--aur`      | *不支持*              | `paru/yay -Ss --aur`                | ❌ pacman不支持 | 仅搜索AUR包      |
+| `search` / `s`                      | `--aur`      | *不支持*              | `paru/yay -Ss --aur`                | ❌ pacman不支持 | 仅搜索 AUR 包      |
 
 ---
 
@@ -96,7 +97,7 @@ source ~/.zshrc
 | -------------------- | -------------- | -------------- | -------------------- | ----------- | -------------- |
 | `show`               |                | `pacman -Si`   | `paru/yay -Si`       | ✅ 全部支持      | 查看包信息          |
 | `show`               | `--installed`  | `pacman -Qi`   | `paru/yay -Qi`       | ✅ 全部支持      | 查看已安装的包信息      |
-| `show`               | `--aur`        | *不支持*          | `paru/yay -Si --aur` | ❌ pacman不支持 | 查看AUR包信息       |
+| `show`               | `--aur`        | *不支持*          | `paru/yay -Si --aur` | ❌ pacman不支持 | 查看 AUR 包信息       |
 | `list` / `ls`        |                | `pacman -Q`    | `paru/yay -Q`        | ✅ 全部支持      | 列出所有包          |
 | `list` / `ls`        | `--upgradable` | `pacman -Qu`   | `paru/yay -Qu`       | ✅ 全部支持      | 列出可升级包         |
 | `list` / `ls`        | `--installed`  | `pacman -Q`    | `paru/yay -Q`        | ✅ 全部支持      | 列出已安装包（排除可升级的） |
@@ -109,8 +110,8 @@ source ~/.zshrc
 
 | 子命令                 | 选项  | pacman 命令        | yay/paru 命令         | 支持情况   | 说明               |
 | ------------------- | --- | ---------------- | ------------------- | ------ | ---------------- |
-| `clean` / `c`       |     | `sudo pacman -Sc`     | `paru/yay -Sc`      | ✅ 全部支持 | 清理缓存包            |
-| `autoremove` / `ar` |     | *使用了pacman -Rns* | **使用了paru/yay -Rns* | ✅ 全部支持 | 自动删除孤儿包 *(谨慎使用)* |
+| `clean` / `c`       |     | `sudo pacman -Sc`     | `paru/yay -Sc`      | ✅ 全部支持 | 清理缓存包            |
+| `autoremove` / `ar` |     | *使用了pacman -Rns* | *使用了paru/yay -Rns* | ✅ 全部支持 | 自动删除孤儿包 *(谨慎使用)* |
 | `check` / `ck`      |     | `pacman -Qk`     | `paru/yay -Qk`      | ✅ 全部支持 | 检查包完整性           |
 
 ---
@@ -120,7 +121,7 @@ source ~/.zshrc
 | 子命令                      | 选项  | pacman 命令       | yay/paru 命令       | 支持情况   | 说明     |
 | ------------------------ | --- | --------------- | ----------------- | ------ | ------ |
 | `download` / `dl`        |     | `sudo pacman -Sw`    | `paru/yay -Sw`    | ✅ 全部支持 | 仅下载不安装 |
-| `help` / `-h` / `--help` |     | `pacman --help` | `paru/ysy --help` | ✅ 全部支持 | 显示帮助信息 |
+| `help` / `-h` / `--help` |     | `pacman --help` | `paru/yay --help` | ✅ 全部支持 | 显示帮助信息 |
 
 > [!IMPORTANT]
 > - 上表未列出的子命令会直接透传给原生命令
@@ -128,6 +129,7 @@ source ~/.zshrc
 > - `yaya` 和 `parua` 命令依赖于去掉 `a` 的同名包管理器，安装后才能使用上述命令
 > - ~~`update` 和 `upgrade` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新官方仓库的所有包~~
 > - 现在，`update` 和 `upgrade` 是解耦的，你可以通过它们将更新包缓存与升级软件包分开处理
+> - `up` 、`u` 和 `Syu` 都封装了 `--Syu` ，你可以通过上述指令的任意一种来更新所有包
 > - list 和 search 可能存在 BUG，如果遇到请在 issues 中提出
 
 ### 常见提示信息及应对指南
@@ -142,10 +144,10 @@ source ~/.zshrc
 | `[E] arch-aptstyle:list: unknown option ...` | 输入的选项未知，参见**命令对照表**                                                           | 
 | `[E] arch-aptstyle: Cannot specify both options at the same time.` | 请不要同时使用多个参数                                                     |
 
-## 📝 更新日志
+## 🗒️ 更新日志
 
-- 	dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)✨♻️🔥
-  
+-	dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)✨♻️🔥
+
     - 解耦了 update 和 upgrade
     - 删除了子命令 diff, why
     - 将子命令 info 更名为 show 以与 apt 的子命令一致
@@ -153,28 +155,46 @@ source ~/.zshrc
     - 重构了一部分代码的实现方法
 
 - dev20250527-0051:	 🐛
-  
+
     - 修复了子命令 search 的一系列 bug
 
-- 	dev20250527-0147:	 ✨🐛♻️
-  
+-	dev20250527-0147:	 ✨🐛♻️
+
     - 修复了子命令 list 的一系列 bug
     - 为子命令 list 加入了新选项 --unofficial，用来列出所有非官方的本地软件包
     - 重构了多参数判断和 flag 类变量命名，使整体保持统一
 
-- 	dev2025527-0205: 	🐛
-  
+-	dev2025527-0205: 	🐛
+
     - 修复了子命令 clean 和 download 的一系列 bug
 
-- 	dev20250527-0217: 🐛
-  
+-	dev20250527-0217: 🐛
+
     - 修复了子命令 update 和 upgrade 的一系列bug
 
-- 	**v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 	🐛♻️🚀
+-	**v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 	🐛♻️🚀
 
     - 重构了 show 判断多参数的逻辑
     - 修复了一些微小的 bug
     - 现在它准备好作为正式版来被发布了
+
+- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
+
+    - 大幅更新了 README
+    - 添加了一个全新的项目 logo
+
+- dev20250606-1340: ✨
+
+    - 加入了新的子命令 up (u | Syu), 与 -Syu 等价，可以同时更新包缓存和包
+
+- v1.0.1-BakaTesutoShokanju2: ♻️🐛⚡📝
+
+    - 提取公共逻辑到辅助函数 __aas_run()
+    - 修复 u/up/Syu 子命令在 yay/paru 中错误使用 -Su 的问题
+    - 简化 show 子命令的冗余代码
+    - 优化 list 子命令效率，使用关联数组替代嵌套循环
+    - 修复缩进不一致问题
+    - 修复 README 中的多个小错误
 
 ## ✨ 致谢
 
