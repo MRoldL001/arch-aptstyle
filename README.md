@@ -187,7 +187,7 @@ source ~/.zshrc
 
     - 加入了新的子命令 up (u | Syu), 与 -Syu 等价，可以同时更新包缓存和包
 
-- **v1.1.0-BakaTesutoShokanju**(dev20260510-0459): 🐛♻️⚡📝🚀
+- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): 🐛♻️⚡📝🚀
 
     - 提取公共逻辑到辅助函数 __aas_run()
     - 修复 u/up/Syu 子命令在 yay/paru 中错误使用 -Su 的问题
