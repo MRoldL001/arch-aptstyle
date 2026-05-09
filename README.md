@@ -196,12 +196,7 @@ source ~/.zshrc
     - 修复缩进不一致问题
     - 修复 README 中的多个小错误
 
-- dev20260510-0516: 🐛
-
-    - 修复 issue #5：pacmana命令在没有成功执行时会提示非 root 无法执行指定操作
-    - 修复 __aas_run() 函数的逻辑，避免在 sudo 命令失败后再次执行不加 sudo 的命令
-
-- **v1.1.0-BakaTesutoShokanju**(dev20260510-0516): 🐛♻️⚡📝🚀
+- dev20260510-0459: 🐛♻️⚡📝
 
     - 提取公共逻辑到辅助函数 __aas_run()
     - 修复 u/up/Syu 子命令在 yay/paru 中错误使用 -Su 的问题
@@ -209,6 +204,18 @@ source ~/.zshrc
     - 优化 list 子命令效率，使用关联数组替代嵌套循环
     - 修复缩进不一致问题
     - 修复 README 中的多个小错误
+
+- **v1.1.0-BakaTesutoShokanju**(dev20260510-0459): 🐛♻️⚡📝🚀
+
+    - 提取公共逻辑到辅助函数 __aas_run()
+    - 修复 u/up/Syu 子命令在 yay/paru 中错误使用 -Su 的问题
+    - 简化 show 子命令的冗余代码
+    - 优化 list 子命令效率，使用关联数组替代嵌套循环
+    - 修复缩进不一致问题
+    - 修复 README 中的多个小错误
+
+- dev20260510-0516: 🐛
+
     - 修复 issue #5：pacmana命令在没有成功执行时会提示非 root 无法执行指定操作
     - 修复 __aas_run() 函数的逻辑，避免在 sudo 命令失败后再次执行不加 sudo 的命令
 
