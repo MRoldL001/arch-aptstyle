@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="v1.0.1-BakaTesutoShokanju2"
+aas_version="dev20250509-1400"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -14,7 +14,12 @@ fi
 __aas_run() {
   local tool="$1"
   shift
-  [[ "$tool" == "pacman" ]] && sudo "$tool" "$@" || "$tool" "$@"
+  if [[ "$tool" == "pacman" ]]; then
+    sudo "$tool" "$@"
+  else
+    "$tool" "$@"
+  fi
+  return $?
 }
 
 # main function

@@ -187,6 +187,11 @@ source ~/.zshrc
 
     - 加入了新的子命令 up (u | Syu), 与 -Syu 等价，可以同时更新包缓存和包
 
+- dev20250509-1400: 🐛
+
+    - 修复 issue #5：pacmana命令在没有成功执行时会提示非 root 无法执行指定操作
+    - 修复 __aas_run() 函数的逻辑，避免在 sudo 命令失败后再次执行不加 sudo 的命令
+
 - v1.0.1-BakaTesutoShokanju2: ♻️🐛⚡📝
 
     - 提取公共逻辑到辅助函数 __aas_run()
