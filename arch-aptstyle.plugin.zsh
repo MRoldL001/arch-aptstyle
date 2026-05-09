@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="v1.0.0-BakaTesutoShokanju(dev20250527-0229)"
+aas_version="v1.0.1-BakaTesutoShokanju2"
 
 # error message
 if [[ $- == *i* ]]; then
@@ -9,6 +9,13 @@ if [[ $- == *i* ]]; then
     echo -e "\033[1;31m[E] arch-aptstyle:'pacman' not found. Please use an Arch-based system.\033[0m" >&2
   fi
 fi
+
+# helper function to run command with sudo if needed
+__aas_run() {
+  local tool="$1"
+  shift
+  [[ "$tool" == "pacman" ]] && sudo "$tool" "$@" || "$tool" "$@"
+}
 
 # main function
 __arch_aptstyle() {
@@ -21,10 +28,10 @@ __arch_aptstyle() {
 
   case "$cmd" in
     install|i)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -S "$@" || "$tool" -S "$@"
+      __aas_run "$tool" -S "$@"
       ;;
     uninstall|remove|rm|r)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Rns "$@" || "$tool" -Rns "$@"
+      __aas_run "$tool" -Rns "$@"
       ;;
     search|s)
       local aur_flag=false official_flag=false
@@ -66,21 +73,21 @@ __arch_aptstyle() {
         fi
       fi
       ;;
-      
+
     update|upd)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sy "$@" || "$tool" -Sy "$@"
+      __aas_run "$tool" -Sy "$@"
       ;;
 
     upgrade|upg)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Su "$@" || "$tool" -Su "$@"
+      __aas_run "$tool" -Su "$@"
       ;;
 
     u|up|Syu)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Syu "$@" || "$tool" -Su "$@"
+      __aas_run "$tool" -Syu "$@"
       ;;
 
     clean|c)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sc "$@" || "$tool" -Sc "$@"
+      __aas_run "$tool" -Sc "$@"
       ;;
 
     show)
@@ -102,14 +109,10 @@ __arch_aptstyle() {
       done
 
       if (( installed_flag + aur_flag > 1 )); then
-          echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both options at the same time.\033[0m" >&2
+        echo -e "\033[1;31m[E] arch-aptstyle: Cannot specify both options at the same time.\033[0m" >&2
         return 1
       elif $installed_flag; then
-        if [[ "$tool" == "pacman" ]]; then
-          "$tool" -Qi "$@"
-        else
-          "$tool" -Qi "$@"
-        fi
+        "$tool" -Qi "$@"
       elif $aur_flag; then
         if [[ "$tool" == "pacman" ]]; then
           echo -e "\033[1;31m[E] arch-aptstyle:$tool does not support '--aur'.\033[0m" >&2
@@ -124,25 +127,25 @@ __arch_aptstyle() {
       local upgradable_flag=false installed_flag=false unofficial_flag=false
       while [[ $# -gt 0 ]]; do
         case "$1" in
-        --upgradable)
-          upgradable_flag=true
-          shift
-          ;;
-        --installed)
-          installed_flag=true
-          shift
-        ;;
-        --unofficial)
-          unofficial_flag=true
-          shift
-        ;;
-        -*)
-          echo -e "\033[1;31m[E] arch-aptstyle:list: unknown option '$1'\033[0m" >&2
-          return 1
-        ;;
-        *)
-          break
-        ;;
+          --upgradable)
+            upgradable_flag=true
+            shift
+            ;;
+          --installed)
+            installed_flag=true
+            shift
+            ;;
+          --unofficial)
+            unofficial_flag=true
+            shift
+            ;;
+          -*)
+            echo -e "\033[1;31m[E] arch-aptstyle:list: unknown option '$1'\033[0m" >&2
+            return 1
+            ;;
+          *)
+            break
+            ;;
         esac
       done
 
@@ -152,34 +155,29 @@ __arch_aptstyle() {
       elif $unofficial_flag; then
         "$tool" -Qm "$@"
       else
-        local upgradable_packages=()
-        upgradable_packages=("${(@f)$("$tool" -Qu)}")
-
-        for package in $($tool -Q); do
-          pkg_name=$(echo "$package" | awk '{print $1}')
-          pkg_version=$(echo "$package" | awk '{print $2}')
-          is_upgradable=false
-
-          for upgradable_package in "${upgradable_packages[@]}"; do
-            upgradable_pkg_name=$(echo "$upgradable_package" | awk '{print $1}')
-            if [[ "$pkg_name" == "$upgradable_pkg_name" ]]; then
-              is_upgradable=true
-              break
-            fi
+        # Use associative array for O(1) lookups of upgradable packages
+        typeset -A upgradable_map
+        local upgradable_packages=("${(@f)$("$tool" -Qu)}")
+        for upgradable_package in "${upgradable_packages[@]}"; do
+          upgradable_pkg_name=$(echo "$upgradable_package" | awk '{print $1}')
+          upgradable_map["$upgradable_pkg_name"]=true
         done
 
-        if $upgradable_flag && ! $is_upgradable; then
-          continue
-        fi
-
-        if $installed_flag && $is_upgradable; then
-          continue
-        fi
-
-        echo "$pkg_name $pkg_version"
-      done
-    fi
-    ;;
+        # Process installed packages
+        while read -r pkg_name pkg_version _; do
+          [[ -z "$pkg_name" ]] && continue
+          is_upgradable=${upgradable_map["$pkg_name"]:-false}
+          
+          if $upgradable_flag && ! $is_upgradable; then
+            continue
+          fi
+          if $installed_flag && $is_upgradable; then
+            continue
+          fi
+          echo "$pkg_name $pkg_version"
+        done < <("$tool" -Q)
+      fi
+      ;;
     orphan|orphans)
       "$tool" -Qtd "$@"
       ;;
@@ -205,7 +203,7 @@ __arch_aptstyle() {
       "$tool" -Qk "$@"
       ;;
     download|dl)
-      [[ "$tool" == "pacman" ]] && sudo "$tool" -Sw "$@" || "$tool" -Sw "$@"
+      __aas_run "$tool" -Sw "$@"
       ;;
     help|-h|--help)
       "$tool" --help
