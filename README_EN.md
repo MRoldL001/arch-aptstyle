@@ -187,7 +187,7 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
 
     - Added new subcommands up (u | Syu), equivalent to -Syu for updating both package database and packages
 
-- **v1.1.0-BakaTesutoShokanju2**: ♻️🐛⚡📝
+- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): ♻️🐛⚡📝
 
     - Extracted common logic into helper function __aas_run()
     - Fixed bug where u/up/Syu subcommands incorrectly used -Su for yay/paru
