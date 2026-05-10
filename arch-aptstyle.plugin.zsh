@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # version
-aas_version="v1.0.1-BakaTesutoShokanju2"
+aas_version="v1.1.0-BakaTesutoShokanju2"
 
 # error message
 if [[ $- == *i* ]]; then
