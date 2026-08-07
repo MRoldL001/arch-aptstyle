@@ -146,7 +146,7 @@ source ~/.zshrc
 
 ## 🗒️ 更新日志
 
--	dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)✨♻️🔥
+-	dev2025527-0008: (从此版本开始追踪变化，因为这是我认为第一个可被正常使用的 dev 版本)
 
     - 解耦了 update 和 upgrade
     - 删除了子命令 diff, why
@@ -154,40 +154,40 @@ source ~/.zshrc
     - 重构了子命令 show, list, search 现在它们更加符合你的习惯了
     - 重构了一部分代码的实现方法
 
-- dev20250527-0051:	 🐛
+- dev20250527-0051:	 
 
     - 修复了子命令 search 的一系列 bug
 
--	dev20250527-0147:	 ✨🐛♻️
+-	dev20250527-0147:	 
 
     - 修复了子命令 list 的一系列 bug
     - 为子命令 list 加入了新选项 --unofficial，用来列出所有非官方的本地软件包
     - 重构了多参数判断和 flag 类变量命名，使整体保持统一
 
--	dev2025527-0205: 	🐛
+-	dev2025527-0205: 	
 
     - 修复了子命令 clean 和 download 的一系列 bug
 
--	dev20250527-0217: 🐛
+-	dev20250527-0217: 
 
     - 修复了子命令 update 和 upgrade 的一系列bug
 
--	**v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 	🐛♻️🚀
+-	**v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 	
 
     - 重构了 show 判断多参数的逻辑
     - 修复了一些微小的 bug
     - 现在它准备好作为正式版来被发布了
 
-- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
+- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 
 
     - 大幅更新了 README
     - 添加了一个全新的项目 logo
 
-- dev20250606-1340: ✨
+- dev20250606-1340: 
 
     - 加入了新的子命令 up (u | Syu), 与 -Syu 等价，可以同时更新包缓存和包
 
-- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): ♻️🐛⚡📝
+- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): 
 
     - 提取公共逻辑到辅助函数 __aas_run()
     - 修复 u/up/Syu 子命令在 yay/paru 中错误使用 -Su 的问题
