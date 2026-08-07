@@ -143,7 +143,7 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
 
 ## 🗒️ Changelog
 
-- dev2025527-0008: (Starting to track changes from this version, as it's the first dev version I consider usable)✨♻️🔥
+- dev2025527-0008: (Starting to track changes from this version, as it's the first dev version I consider usable)
 
     - Decoupled update and upgrade
     - Removed diff and why subcommands
@@ -151,40 +151,40 @@ By appending an `a` to Arch-based package managers (`pacman`, `yay`, `paru`) to 
     - Refactored show, list, search subcommands for better usability
     - Refactored some code implementation approaches
 
-- dev20250527-0051: 🐛
+- dev20250527-0051: 
 
     - Fixed various bugs in the search subcommand
 
-- dev20250527-0147: ✨🐛♻️
+- dev20250527-0147: 
 
     - Fixed various bugs in the list subcommand
     - Added new --unofficial option to list subcommand for listing all unofficial local packages
     - Refactored multi-option handling and flag variable naming for consistency
 
-- dev2025527-0205: 🐛
+- dev2025527-0205: 
 
     - Fixed various bugs in clean and download subcommands
 
-- dev20250527-0217: 🐛
+- dev20250527-0217: 
 
     - Fixed various bugs in update and upgrade subcommands
 
-- **v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 🐛♻️🚀
+- **v1.0.0-BakaTesutoShokanju**(dev20250527-0229): 
 
     - Refactored show subcommand's multi-option logic
     - Fixed some minor bugs
     - Now ready for official release
 
-- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 📝
+- **v1.0.1-BakaTesutoShokanju**(dev20250527-accumulate): 
 
     - Significantly updated README
     - Added a brand new project logo
 
-- dev20250606-1340: ✨
+- dev20250606-1340: 
 
     - Added new subcommands up (u | Syu), equivalent to -Syu for updating both package database and packages
 
-- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): ♻️🐛⚡📝
+- **v1.1.0-BakaTesutoShokanju2**(dev20260510-0459): 
 
     - Extracted common logic into helper function __aas_run()
     - Fixed bug where u/up/Syu subcommands incorrectly used -Su for yay/paru
